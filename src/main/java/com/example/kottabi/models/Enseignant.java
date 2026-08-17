@@ -20,7 +20,6 @@ public class Enseignant extends UserEntity{
 
     @OneToMany(mappedBy = "enseignant")
     private List<Progression> progressionList;
-
     @OneToMany(mappedBy = "enseignant")
     private List<Participation> participationList;
 }

@@ -23,9 +23,9 @@ public class Presence {
 	private LocalDate date;
 	private Statut statut;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "eleve_id")
-    private Eleve eleve;
+	@ManyToOne
+	@JoinColumn(name = "eleve_id")
+	private Eleve eleve;
+
 
 }

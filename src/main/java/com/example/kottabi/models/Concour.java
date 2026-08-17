@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Councour {
+public class Concour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -27,7 +27,7 @@ public class Councour {
 
 
 
-    @OneToMany(mappedBy = "councour")
+    @OneToMany(mappedBy = "concour")
     private List<Participation> participationList;
 
 

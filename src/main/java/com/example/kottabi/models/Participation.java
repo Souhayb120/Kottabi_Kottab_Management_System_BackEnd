@@ -17,23 +17,21 @@ public class Participation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
 	private Double note;
 	private String commentaire;
 	private int classement;
 
 	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name = "eleve_id", referencedColumnName = "eleve_id")
+	@JoinColumn(name = "concour_id")
+	private Concour concour;
+
+
+	@ManyToOne
+	@JoinColumn(name = "eleve_id")
 	private Eleve eleve;
 
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name = "councour_id", referencedColumnName = "councour_id")
-	private Councour councour;
 
 	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name = "enseignant_id", referencedColumnName = "enseignant_id")
+	@JoinColumn(name = "enseignant_id")
 	private Enseignant enseignant;
 }
