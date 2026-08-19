@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaticipationResponseDTO {
+public class ParticipationResponseDTO {
 
 	private Double note;
 	private String commentaire;
