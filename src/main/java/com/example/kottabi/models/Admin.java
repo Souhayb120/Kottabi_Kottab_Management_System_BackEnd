@@ -7,4 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+@Entity
+@Getter
+@Setter
 public class Admin extends UserEntity{}
