@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.IdGeneratorType;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
@@ -26,4 +27,6 @@ public class UserEntity {
 	private String tel;
 	private String password;
 	private Role role;
+
+
 }
