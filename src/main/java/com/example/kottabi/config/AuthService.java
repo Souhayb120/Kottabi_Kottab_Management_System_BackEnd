@@ -3,10 +3,12 @@ package com.example.kottabi.config;
 import com.example.kottabi.DTO.AuthResponse;
 import com.example.kottabi.DTO.UserAuthRequest;
 import com.example.kottabi.DTO.UserLoginDTO;
+import com.example.kottabi.enums.Role;
 import com.example.kottabi.models.Admin;
 import com.example.kottabi.models.Eleve;
 import com.example.kottabi.models.Enseignant;
 import com.example.kottabi.repositories.UserRepository;
+import jakarta.persistence.RollbackException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,29 +40,29 @@ public class AuthService {
 		Admin admin = new Admin();
 		switch (request.getRole().name()) {
 			case "ELEVE" -> {
-				eleve.setUserName(request.getUserName());
-				eleve.setRole(request.getRole());
+				eleve.setUsername(request.getUsername());
+				eleve.setRole(Role.ELEVE);
 				eleve.setPassword(passwordEncoder.encode(request.getPassword()));
 				eleve.setPrenom(request.getPrenom());
 				eleve.setNom(request.getNom());
-				eleve.setDateLissance(request.getDateLissance());
+				eleve.setDateNaissance(request.getDateNaissance());
 				eleve.setTel(request.getTel());
 				userRepository.save(eleve);
 			}
 			case "ADMIN" -> {
-				admin.setUserName(request.getUserName());
+				admin.setUsername(request.getUsername());
 				admin.setTel(request.getTel());
 				admin.setPassword(passwordEncoder.encode(request.getPassword()));
-				admin.setRole(request.getRole());
+				admin.setRole(Role.ADMIN);
 				userRepository.save(admin);
 			}
 			case "ENSEIGNANT" -> {
-				enseignant.setUserName(request.getUserName());
+				enseignant.setUsername(request.getUsername());
 				enseignant.setNom(request.getNom());
 				eleve.setPrenom(request.getPrenom());
 				enseignant.setTel(request.getTel());
 				enseignant.setPassword(passwordEncoder.encode(request.getPassword()));
-				enseignant.setRole(request.getRole());
+				enseignant.setRole(Role.ENSEIGNANT);
 				enseignant.setSpecialite(request.getSpecialite());
 				enseignant.setDescription(request.getDescription());
 				userRepository.save(enseignant);
@@ -70,9 +72,11 @@ public class AuthService {
 
 	public AuthResponse login(UserLoginDTO request) {
 		authenticationManager.authenticate(
-			new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword())
+			new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
 		);
-		UserDetails user = userDetailsService.loadUserByUsername(request.getUserName());
+
+		UserDetails user = userDetailsService.loadUserByUsername(request.getUsername());
+
 		String token = jwtUtil.generateToken(user);
 		return new AuthResponse(token);
 	}

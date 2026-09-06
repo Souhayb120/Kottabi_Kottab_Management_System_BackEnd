@@ -12,8 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EleveResponseDTO {
-
-	private String userName;
+	private String username;
 	private String nom;
 	private String prenom;
 	private String tel;

@@ -9,4 +9,5 @@ import org.mapstruct.Mapper;
 public interface EleveMapper {
     Eleve toEntity(EleveRequestDTO eleveRequestDTO);
     EleveResponseDTO toDTO(Eleve eleve);
+
 }

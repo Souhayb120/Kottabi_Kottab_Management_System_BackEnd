@@ -1,5 +1,6 @@
 package com.example.kottabi.models;
 
+import com.example.kottabi.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
@@ -9,16 +10,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class Eleve extends UserEntity {
 
-	private LocalDate DateLissance;
+	private LocalDate dateNaissance;
 
+
+	public Eleve() {
+		super();
+		setRole(Role.ELEVE);
+	}
 
 	@OneToMany(mappedBy = "eleve")
 	private List<Presence> presenceList;

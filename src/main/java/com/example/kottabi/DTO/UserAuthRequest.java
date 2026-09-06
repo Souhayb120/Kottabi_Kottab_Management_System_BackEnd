@@ -13,10 +13,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserAuthRequest {
-    private String userName;
+    private String username;
     private String nom;
     private String prenom;
-    private LocalDate DateLissance;
+    private LocalDate dateNaissance;
     private String tel;
     private String password;
     private Role role;

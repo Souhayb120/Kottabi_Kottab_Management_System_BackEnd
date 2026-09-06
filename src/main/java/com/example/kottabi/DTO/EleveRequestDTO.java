@@ -1,5 +1,6 @@
 package com.example.kottabi.DTO;
 
+import com.example.kottabi.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

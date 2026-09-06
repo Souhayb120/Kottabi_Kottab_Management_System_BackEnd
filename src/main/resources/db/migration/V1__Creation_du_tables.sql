@@ -15,7 +15,7 @@ CREATE TABLE user_entity (
                              DTYPE VARCHAR(31) NOT NULL,
 
     -- Fields specific to Eleve
-                             date_lissance DATE,
+                             date_Naissance DATE,
 
     -- Fields specific to Enseignant
                              specialite VARCHAR(255),

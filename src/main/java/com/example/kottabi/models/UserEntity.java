@@ -26,13 +26,15 @@ public class UserEntity implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String userName;
+	private String username;
 	private String nom;
 	private String prenom;
 	private String tel;
 	private String password;
 	@Enumerated(value = EnumType.STRING)
 	private Role role;
+
+
 
 
 	@Override
@@ -43,6 +45,8 @@ public class UserEntity implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return userName;
+		return username;
 	}
+
+
 }
