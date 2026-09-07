@@ -3,6 +3,7 @@ package com.example.kottabi.services.ServiceImp;
 import com.example.kottabi.DTO.EleveRequestDTO;
 import com.example.kottabi.DTO.EleveResponseDTO;
 import com.example.kottabi.Exceptions.ResourceNotFoundException;
+import com.example.kottabi.config.PasswordGeneratorService;
 import com.example.kottabi.enums.Role;
 import com.example.kottabi.mapper.EleveMapper;
 import com.example.kottabi.models.Eleve;
@@ -21,18 +22,18 @@ public class EleveServiceImpl implements EleveService {
 
 	private final EleveRepo eleveRepo;
 	private final EleveMapper eleveMapper;
-	private final MapperBuilder mapperBuilder;
+	private final PasswordGeneratorService passwordGeneratorService;
 
-	public EleveServiceImpl(EleveRepo eleveRepo, EleveMapper eleveMapper, MapperBuilder mapperBuilder) {
+	public EleveServiceImpl(EleveRepo eleveRepo, EleveMapper eleveMapper, PasswordGeneratorService passwordGeneratorService) {
 		this.eleveRepo = eleveRepo;
 		this.eleveMapper = eleveMapper;
-		this.mapperBuilder = mapperBuilder;
-	}
+        this.passwordGeneratorService = passwordGeneratorService;
+    }
 
 	@Override
 	public EleveResponseDTO ajouterEleve(EleveRequestDTO dto) {
 		Eleve eleve = eleveMapper.toEntity(dto);
-		eleve.setUsername(dto.getUsername());
+		eleve.setPassword(passwordGeneratorService.generatePassword());
 		Eleve saved = eleveRepo.save(eleve);
 		EleveResponseDTO eleveResponseDTO = eleveMapper.toDTO(saved);
 		return eleveResponseDTO;

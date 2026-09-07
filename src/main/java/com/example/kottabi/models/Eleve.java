@@ -7,22 +7,22 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-
 public class Eleve extends UserEntity {
 
-	private LocalDate dateNaissance;
 
+
+	private LocalDate dateNaissance;
 
 	public Eleve() {
 		super();
 		setRole(Role.ELEVE);
+
 	}
 
 	@OneToMany(mappedBy = "eleve")
