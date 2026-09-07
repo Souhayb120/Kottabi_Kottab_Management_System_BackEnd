@@ -1,40 +1,41 @@
 package com.example.kottabi.controller;
 
-import com.example.kottabi.DTO.AuthResponse;
-import com.example.kottabi.DTO.ChangePasswordRequest;
-import com.example.kottabi.DTO.UserAuthRequest;
-import com.example.kottabi.DTO.UserLoginDTO;
-import com.example.kottabi.config.AuthService;
-import com.example.kottabi.services.UserPasswordService;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+
+import com.example.kottabi.config.UserService;
+import com.example.kottabi.models.UserEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
-@RequiredArgsConstructor
+@RequestMapping("/api/user")
 public class UserController {
 
-	private final AuthService authService;
-	private final UserPasswordService userPasswordService;
 
-	@PostMapping("/register")
-	public ResponseEntity<String> register(@Valid @RequestBody UserAuthRequest request) {
-		authService.register(request);
-		return ResponseEntity.ok("User registered successfully");
-	}
+    private final UserService userService;
 
-	@PostMapping("/login")
-	public ResponseEntity<AuthResponse> login(@Valid @RequestBody UserLoginDTO request) {
-		AuthResponse response = authService.login(request);
-		return ResponseEntity.ok(response);
-	}
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-	@PatchMapping("/changePassword")
-	public void changePassword(
-            @RequestBody ChangePasswordRequest passwordRequest
-            ) {
-		userPasswordService.changerLeMotDePasse(passwordRequest);
-	}
+    @GetMapping()
+    public Page<UserEntity> findAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return userService.findAllUsers(page, size);
+    }
+
+    @GetMapping("{id}")
+    public UserEntity findUserById(
+            @PathVariable long id
+    ) {
+        return userService.findUserById(id);
+    }
+
+    @DeleteMapping("{id}")
+    public void supprimerUser(
+            @PathVariable long id
+    ) {
+        userService.supprimerUser(id);
+    }
 }
