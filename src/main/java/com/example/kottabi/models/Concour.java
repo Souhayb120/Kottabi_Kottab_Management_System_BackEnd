@@ -1,15 +1,13 @@
 package com.example.kottabi.models;
 
-
 import com.example.kottabi.enums.NiveauHifz;
 import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
@@ -17,19 +15,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Concour {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String nom;
-    private String description;
-    private LocalDate dateCreation;
-    private NiveauHifz niveauHifz;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
+	private String nom;
+	private String description;
+	private LocalDate dateCreation;
 
-    @OneToMany(mappedBy = "concour")
-    private List<Participation> participationList;
+	@Enumerated(value = EnumType.STRING)
+	private NiveauHifz niveauHifz;
 
-
-
+	@OneToMany(mappedBy = "concour")
+	private List<Participation> participationList;
 }
