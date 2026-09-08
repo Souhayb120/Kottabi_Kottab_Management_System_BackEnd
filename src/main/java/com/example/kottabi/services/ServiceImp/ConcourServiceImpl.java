@@ -6,7 +6,9 @@ import com.example.kottabi.mapper.ConcourMapper;
 import com.example.kottabi.models.Concour;
 import com.example.kottabi.repositories.ConcourRepo;
 import com.example.kottabi.services.ConcourService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ConcourServiceImpl implements ConcourService {
 
 	private final ConcourMapper concourMapper;

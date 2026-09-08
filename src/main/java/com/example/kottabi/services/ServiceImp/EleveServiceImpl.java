@@ -41,7 +41,7 @@ public class EleveServiceImpl implements EleveService {
 
 	@Override
 	public Eleve editEleve(long id, EleveRequestDTO eleve) {
-		Eleve eleve1 = eleveRepo.findById(id);
+		Eleve eleve1 = eleveRepo.findById(id).orElseThrow(()->new RuntimeException("eleve not found !!"));
 		eleve1.setUsername(eleve.getUsername());
 		eleve1.setTel(eleve.getTel());
 		eleve1.setDateNaissance(eleve.getDateNaissance());
@@ -53,7 +53,7 @@ public class EleveServiceImpl implements EleveService {
 
 	@Override
 	public void supprimerEleve(long id) {
-		Eleve eleve = eleveRepo.findById(id);
+		Eleve eleve = eleveRepo.findById(id).orElseThrow(()->new RuntimeException("eleve not found !!"));;
 		if(eleve != null){
 			eleveRepo.delete(eleve);
 		}else {
@@ -63,7 +63,7 @@ public class EleveServiceImpl implements EleveService {
 
 	@Override
 	public EleveResponseDTO consulterEleveById(long id) {
-		Eleve eleve = eleveRepo.findById(id);
+		Eleve eleve = eleveRepo.findById(id).orElseThrow(()->new RuntimeException("eleve not found !!"));;
 
 		EleveResponseDTO eleveResponseDTO = eleveMapper.toDTO(eleve);
 
