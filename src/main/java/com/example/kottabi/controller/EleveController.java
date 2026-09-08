@@ -4,6 +4,7 @@ import com.example.kottabi.DTO.EleveRequestDTO;
 import com.example.kottabi.DTO.EleveResponseDTO;
 import com.example.kottabi.models.Eleve;
 import com.example.kottabi.services.EleveService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class EleveController {
 	}
 
 	@PostMapping
-	public EleveResponseDTO ajouterEleve(@RequestBody EleveRequestDTO eleve) {
+	public EleveResponseDTO ajouterEleve(@Valid @RequestBody EleveRequestDTO eleve) {
 		return eleveService.ajouterEleve(eleve);
 	}
 
