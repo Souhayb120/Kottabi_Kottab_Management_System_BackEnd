@@ -9,9 +9,7 @@ public class ParticipationRequestDTO {
 	@NotBlank(message = "Note is required")
 	private Double note;
 
-
 	private String commentaire;
-
 
 	private int classement;
 
