@@ -4,6 +4,7 @@ package com.example.kottabi.services;
 import com.example.kottabi.DTO.EleveRequestDTO;
 import com.example.kottabi.DTO.EleveResponseDTO;
 import com.example.kottabi.models.Eleve;
+import jakarta.persistence.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

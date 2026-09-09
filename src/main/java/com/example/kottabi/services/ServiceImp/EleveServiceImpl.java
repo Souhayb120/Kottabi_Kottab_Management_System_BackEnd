@@ -9,6 +9,7 @@ import com.example.kottabi.mapper.EleveMapper;
 import com.example.kottabi.models.Eleve;
 import com.example.kottabi.repositories.EleveRepo;
 import com.example.kottabi.services.EleveService;
+import jakarta.persistence.Cacheable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
