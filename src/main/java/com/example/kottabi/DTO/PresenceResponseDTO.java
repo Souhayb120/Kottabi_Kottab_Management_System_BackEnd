@@ -18,5 +18,5 @@ import java.time.LocalDate;
 public class PresenceResponseDTO {
     private LocalDate date;
     private Statut statut;
-    private Eleve eleve;
+    private EleveResponseDTO eleve;
 }

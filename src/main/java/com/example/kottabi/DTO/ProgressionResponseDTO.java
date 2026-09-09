@@ -17,7 +17,7 @@ public class ProgressionResponseDTO {
 	private int versetDebut;
 	private int versetFin;
 
-	private Eleve eleve;
+	private EleveResponseDTO eleve;
 
-	private Enseignant enseignant;
+	private EnseignantResponseDTO enseignant;
 }

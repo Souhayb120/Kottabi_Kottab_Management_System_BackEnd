@@ -18,9 +18,9 @@ public class ParticipationResponseDTO {
 	private String commentaire;
 	private int classement;
 
-	private Concour concour;
+	private ConcourResponseDTO concour;
 
-	private Eleve eleve;
+	private EleveResponseDTO eleve;
 
-	private Enseignant enseignant;
+	private EnseignantResponseDTO enseignant;
 }

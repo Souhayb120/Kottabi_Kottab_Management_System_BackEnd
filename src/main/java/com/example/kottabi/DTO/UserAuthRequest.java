@@ -1,6 +1,7 @@
 package com.example.kottabi.DTO;
 
 import com.example.kottabi.enums.Role;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,6 +25,10 @@ public class UserAuthRequest {
 
 	@NotBlank(message = "Prenom is required")
 	private String prenom;
+
+	@NotBlank(message = "Email is required")
+	@Email
+	private String email;
 
 	private LocalDate dateNaissance;
 

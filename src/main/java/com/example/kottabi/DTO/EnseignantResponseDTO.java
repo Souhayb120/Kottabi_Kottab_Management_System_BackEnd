@@ -14,6 +14,7 @@ public class EnseignantResponseDTO {
     private String username;
     private String prenom;
     private String nom;
+    private String email;
     private String tel;
     private String specialite;
     private String description;

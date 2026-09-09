@@ -18,7 +18,7 @@ public class EleveController {
 
 
 	@GetMapping()
-	public Page<Eleve> consulterEleves(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+	public Page<EleveResponseDTO> consulterEleves(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
 		return eleveService.consulterEleves(page, size);
 	}
 

@@ -47,6 +47,7 @@ public class EleveServiceImpl implements EleveService {
 		eleve1.setDateNaissance(eleve.getDateNaissance());
 		eleve1.setPrenom(eleve.getPrenom());
 		eleve1.setNom(eleve.getNom());
+		eleve1.setEmail(eleve.getEmail());
 		eleve1.setPassword(eleve.getPassword());
 		return eleveRepo.save(eleve1);
 	}

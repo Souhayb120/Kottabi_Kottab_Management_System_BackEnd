@@ -1,5 +1,6 @@
 package com.example.kottabi.DTO;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,9 @@ public class EnseignantRequestDTO {
 
     @NotBlank(message = "Nom is required")
     private String nom;
+    @NotBlank(message = "Email is required")
+    @Email
+    private String email;
 
     @NotBlank(message = "Tel is required")
     private String tel;

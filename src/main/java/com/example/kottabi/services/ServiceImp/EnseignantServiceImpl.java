@@ -52,6 +52,7 @@ public class EnseignantServiceImpl implements EnseignantService {
 		enseignant.setNom(enseignantRequestDTO.getNom());
 
 		enseignant.setTel(enseignantRequestDTO.getTel());
+		enseignant.setEmail(enseignantRequestDTO.getEmail());
 
 		enseignant.setSpecialite(enseignantRequestDTO.getSpecialite());
 

@@ -28,7 +28,7 @@ public class ParticipationController {
 	}
 
 	@GetMapping
-	public Page<Participation> findAll(
+	public Page<ParticipationResponseDTO> findAll(
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "10") int size
 	) {

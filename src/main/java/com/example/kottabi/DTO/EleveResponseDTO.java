@@ -15,6 +15,7 @@ public class EleveResponseDTO {
 	private String username;
 	private String nom;
 	private String prenom;
+	private String email;
 	private String tel;
 	private LocalDate dateNaissance;
 }

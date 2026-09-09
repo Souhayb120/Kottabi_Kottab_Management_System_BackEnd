@@ -4,6 +4,7 @@ CREATE TABLE user_entity
     user_name      VARCHAR(255),
     nom            VARCHAR(255),
     prenom         VARCHAR(255),
+    email         VARCHAR(255) unique,
     tel            VARCHAR(50),
     password       VARCHAR(255),
     role           INT,

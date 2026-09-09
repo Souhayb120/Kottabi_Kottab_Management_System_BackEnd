@@ -42,7 +42,7 @@ public class PresenceController {
     }
 
     @GetMapping
-    public Page<Presence> consulterLesAbsences(
+    public Page<PresenceResponseDTO> consulterLesAbsences(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
