@@ -1,7 +1,7 @@
 CREATE TABLE user_entity
 (
     id             BIGINT      NOT NULL AUTO_INCREMENT,
-    user_name      VARCHAR(255) unique,
+    user_name      VARCHAR(255),
     nom            VARCHAR(255),
     prenom         VARCHAR(255),
     tel            VARCHAR(50),

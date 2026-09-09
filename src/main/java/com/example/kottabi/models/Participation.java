@@ -21,16 +21,19 @@ public class Participation {
 	private String commentaire;
 	private int classement;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "concour_id")
 	private Concour concour;
 
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "eleve_id")
 	private Eleve eleve;
 
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "enseignant_id")
 	private Enseignant enseignant;

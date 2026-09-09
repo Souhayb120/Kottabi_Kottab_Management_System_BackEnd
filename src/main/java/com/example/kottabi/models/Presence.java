@@ -24,6 +24,7 @@ public class Presence {
 	private Statut statut;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "eleve_id")
 	private Eleve eleve;
 

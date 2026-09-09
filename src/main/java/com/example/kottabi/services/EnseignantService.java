@@ -14,5 +14,5 @@ public interface EnseignantService {
     void supprimerEnseignant(long id);
     EnseignantResponseDTO consulterEnseignantById(long id);
     Page<EnseignantResponseDTO> consulterEnseignantBySpecialite(String specialite,int page , int size);
-    Page<Enseignant> consulterEnseignants(int page , int size);
+    Page<EnseignantResponseDTO> consulterEnseignants(int page , int size);
 }

@@ -71,8 +71,9 @@ public class EleveServiceImpl implements EleveService {
 	}
 
 	@Override
-	public Page<Eleve> consulterEleves(int size, int page) {
+	public Page<EleveResponseDTO> consulterEleves(int size, int page) {
 		Pageable pageable = PageRequest.of(size,page);
-		return eleveRepo.findAll(pageable);
+		Page<Eleve> eleves =  eleveRepo.findAll(pageable);
+		return eleves.map(eleve -> eleveMapper.toDTO(eleve));
 	}
 }

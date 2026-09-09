@@ -12,5 +12,5 @@ public interface PresenceService {
     PresenceResponseDTO enregistrerAbsenceEleve(PresenceRequestDTO presenceRequestDTO);
     void modifierAbsenceStatut(long id , String statut);
     void supprimerAbsence(long id);
-    Page<Presence> consulterLesAbsences(int page , int size);
+    Page<PresenceResponseDTO> consulterLesAbsences(int page , int size);
 }

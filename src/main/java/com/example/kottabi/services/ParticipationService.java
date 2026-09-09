@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ParticipationService {
     ParticipationResponseDTO registerParticipation(ParticipationRequestDTO participationRequestDTO);
-    Page<Participation> findAll(int page , int size);
+    Page<ParticipationResponseDTO> findAll(int page , int size);
     void supprimerParticipation(long id);
 }

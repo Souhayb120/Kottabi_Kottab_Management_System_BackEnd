@@ -31,13 +31,12 @@ public class EnseignantServiceImpl implements EnseignantService {
 	}
 
 	@Override
-	public EnseignantResponseDTO ajouterEnseignant(EnseignantRequestDTO enseignantRequestDTO) {
-		Enseignant enseignant = enseignantMapper.toEntity(enseignantRequestDTO);
+	public EnseignantResponseDTO ajouterEnseignant(EnseignantRequestDTO dto) {
+		Enseignant enseignant = enseignantMapper.toEntity(dto);
 		enseignant.setPassword(passwordGeneratorService.generatePassword());
-
 		Enseignant saved = enseignantRepo.save(enseignant);
-
-		return enseignantMapper.toDTO(saved);
+		EnseignantResponseDTO enseignantResponseDTO = enseignantMapper.toDTO(saved);
+		return enseignantResponseDTO;
 	}
 
 	@Override
@@ -88,9 +87,11 @@ public class EnseignantServiceImpl implements EnseignantService {
 	}
 
 	@Override
-	public Page<Enseignant> consulterEnseignants(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
+	public Page<EnseignantResponseDTO> consulterEnseignants(int pageNumber, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-		return enseignantRepo.findAll(pageable);
+		Page<Enseignant> enseignants = enseignantRepo.findAll(pageable);
+
+		return enseignants.map(enseignant -> enseignantMapper.toDTO(enseignant));
 	}
 }

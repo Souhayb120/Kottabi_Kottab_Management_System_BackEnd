@@ -14,5 +14,5 @@ public interface EleveService {
     Eleve editEleve(long id , EleveRequestDTO eleve);
     void supprimerEleve(long id);
     EleveResponseDTO consulterEleveById(long id);
-    Page<Eleve> consulterEleves(int page , int size);
+    Page<EleveResponseDTO> consulterEleves(int page , int size);
 }

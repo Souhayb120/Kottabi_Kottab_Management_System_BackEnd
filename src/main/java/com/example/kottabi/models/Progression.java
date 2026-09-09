@@ -22,11 +22,13 @@ public class Progression {
 	private int versetDebut;
 	private int versetFin;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "eleve_id")
 	private Eleve eleve;
 
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "enseignant_id")
 	private Enseignant enseignant;

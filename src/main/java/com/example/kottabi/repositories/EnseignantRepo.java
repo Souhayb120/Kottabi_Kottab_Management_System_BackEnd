@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EnseignantRepo extends JpaRepository<Enseignant, Long> {
+    Page<Enseignant> findAll(Pageable pageable);
     Page<Enseignant> findBySpecialite(
             String specialite,
             Pageable pageable

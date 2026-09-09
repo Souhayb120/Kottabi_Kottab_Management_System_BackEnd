@@ -52,7 +52,6 @@ public class ConcourServiceImpl implements ConcourService {
 	@Override
 	public ConcourResponseDTO consulterConcourById(long id) {
 		Concour concour = concourRepo.findById(id).orElseThrow(() -> new RuntimeException("Concour not found"));
-
 		ConcourResponseDTO concourResponseDTO = concourMapper.toDTO(concour);
 		return concourResponseDTO;
 	}

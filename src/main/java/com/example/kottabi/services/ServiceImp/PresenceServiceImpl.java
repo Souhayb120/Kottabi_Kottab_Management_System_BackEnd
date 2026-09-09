@@ -59,8 +59,9 @@ public class PresenceServiceImpl implements PresenceService {
 	}
 
 	@Override
-	public Page<Presence> consulterLesAbsences(int page, int size) {
+	public Page<PresenceResponseDTO> consulterLesAbsences(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
-		return presenceRepo.findAll(pageable);
+		Page<Presence> presences = presenceRepo.findAll(pageable);
+		return presences.map(presence -> presenceMapper.toDTO(presence));
 	}
 }

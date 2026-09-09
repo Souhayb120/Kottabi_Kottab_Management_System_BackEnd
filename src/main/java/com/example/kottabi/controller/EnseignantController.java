@@ -19,7 +19,7 @@ public class EnseignantController {
 	}
 
 	@GetMapping
-	public Page<Enseignant> consulterEnseignants(
+	public Page<EnseignantResponseDTO> consulterEnseignants(
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "10") int size
 	) {
