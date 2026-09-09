@@ -8,6 +8,8 @@ import com.example.kottabi.mapper.EnseignantMapper;
 import com.example.kottabi.models.Enseignant;
 import com.example.kottabi.repositories.EnseignantRepo;
 import com.example.kottabi.services.EnseignantService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +32,7 @@ public class EnseignantServiceImpl implements EnseignantService {
 		this.passwordGeneratorService = passwordGeneratorService;
 	}
 
+	@CacheEvict(value = "enseignants", allEntries = true)
 	@Override
 	public EnseignantResponseDTO ajouterEnseignant(EnseignantRequestDTO dto) {
 		Enseignant enseignant = enseignantMapper.toEntity(dto);
@@ -39,6 +42,7 @@ public class EnseignantServiceImpl implements EnseignantService {
 		return enseignantResponseDTO;
 	}
 
+	@CacheEvict(value = "enseignants", allEntries = true)
 	@Override
 	public Enseignant editEnseignant(long id, EnseignantRequestDTO enseignantRequestDTO) {
 		Enseignant enseignant = enseignantRepo
@@ -60,6 +64,7 @@ public class EnseignantServiceImpl implements EnseignantService {
 		return enseignantRepo.save(enseignant);
 	}
 
+	@CacheEvict(value = "enseignant" , key = "#id")
 	@Override
 	public void supprimerEnseignant(long id) {
 		Enseignant enseignant = enseignantRepo
@@ -69,6 +74,7 @@ public class EnseignantServiceImpl implements EnseignantService {
 		enseignantRepo.delete(enseignant);
 	}
 
+	@Cacheable(value = "enseignant", key = "#id")
 	@Override
 	public EnseignantResponseDTO consulterEnseignantById(long id) {
 		Enseignant enseignant = enseignantRepo
@@ -78,6 +84,7 @@ public class EnseignantServiceImpl implements EnseignantService {
 		return enseignantMapper.toDTO(enseignant);
 	}
 
+	@Cacheable(value = "enseignant", key = "#specialite + '-' + #page + '-' + #size")
 	@Override
 	public Page<EnseignantResponseDTO> consulterEnseignantBySpecialite(String specialite, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
@@ -87,6 +94,7 @@ public class EnseignantServiceImpl implements EnseignantService {
 		return enseignants.map(enseignantMapper::toDTO);
 	}
 
+	@Cacheable(value = "enseignant", key = "#pageNumber + '-' + #pageSize")
 	@Override
 	public Page<EnseignantResponseDTO> consulterEnseignants(int pageNumber, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);

@@ -6,6 +6,8 @@ import com.example.kottabi.mapper.ConcourMapper;
 import com.example.kottabi.models.Concour;
 import com.example.kottabi.repositories.ConcourRepo;
 import com.example.kottabi.services.ConcourService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +21,7 @@ public class ConcourServiceImpl implements ConcourService {
 		this.concourRepo = concourRepo;
 	}
 
+	@CacheEvict(value = "concours", allEntries = true)
 	@Override
 	public ConcourResponseDTO ajouterConcour(ConcourRequestDTO concour) {
 		Concour concourEntity = concourMapper.toEntity(concour);
@@ -27,6 +30,7 @@ public class ConcourServiceImpl implements ConcourService {
 		return concourResponseDTO;
 	}
 
+	@CacheEvict(value = "concours", allEntries = true)
 	@Override
 	public ConcourResponseDTO editConcour(long id, ConcourRequestDTO dto) {
 		Concour concour = concourRepo.findById(id).orElseThrow(() -> new RuntimeException("Concour not found"));
@@ -42,6 +46,7 @@ public class ConcourServiceImpl implements ConcourService {
 		return concourResponseDTO;
 	}
 
+	@CacheEvict(value = "concours", allEntries = true)
 	@Override
 	public void supprimerConcour(long id) {
 		Concour concour = concourRepo.findById(id).orElseThrow(() -> new RuntimeException("Concour not found"));
@@ -49,6 +54,7 @@ public class ConcourServiceImpl implements ConcourService {
 		concourRepo.delete(concour);
 	}
 
+	@Cacheable(value = "concours", key = "#id")
 	@Override
 	public ConcourResponseDTO consulterConcourById(long id) {
 		Concour concour = concourRepo.findById(id).orElseThrow(() -> new RuntimeException("Concour not found"));

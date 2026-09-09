@@ -9,6 +9,8 @@ import com.example.kottabi.models.Presence;
 import com.example.kottabi.repositories.EleveRepo;
 import com.example.kottabi.repositories.PresenceRepo;
 import com.example.kottabi.services.PresenceService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +29,7 @@ public class PresenceServiceImpl implements PresenceService {
 		this.eleveRepo = eleveRepo;
 	}
 
+	@CacheEvict(value = "presences", allEntries = true)
 	@Override
 	public PresenceResponseDTO enregistrerAbsenceEleve(PresenceRequestDTO presenceRequestDTO) {
 		Eleve eleve = eleveRepo.findById(presenceRequestDTO.getEleveId())
@@ -43,6 +46,7 @@ public class PresenceServiceImpl implements PresenceService {
 		return response;
 	}
 
+	@CacheEvict(value = "presences", allEntries = true)
 	@Override
 	public void modifierAbsenceStatut(long id, String statut) {
 		Presence presence = presenceRepo.findById(id).orElseThrow(() -> new RuntimeException("Presence not found"));
@@ -52,12 +56,14 @@ public class PresenceServiceImpl implements PresenceService {
 		presenceRepo.save(presence);
 	}
 
+	@CacheEvict(value = "presences", allEntries = true)
 	@Override
 	public void supprimerAbsence(long id) {
 		Presence presence = presenceRepo.findById(id).orElseThrow(() -> new RuntimeException("Presence not found"));
 		presenceRepo.delete(presence);
 	}
 
+	@Cacheable(value = "presences", key = "#page + '-' + #size")
 	@Override
 	public Page<PresenceResponseDTO> consulterLesAbsences(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);

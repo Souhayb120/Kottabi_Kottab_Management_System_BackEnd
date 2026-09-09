@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PresenceResponseDTO {
+public class PresenceResponseDTO implements Serializable {
     private LocalDate date;
     private Statut statut;
     private EleveResponseDTO eleve;

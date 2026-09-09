@@ -9,8 +9,9 @@ import com.example.kottabi.mapper.EleveMapper;
 import com.example.kottabi.models.Eleve;
 import com.example.kottabi.repositories.EleveRepo;
 import com.example.kottabi.services.EleveService;
-import jakarta.persistence.Cacheable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +26,17 @@ public class EleveServiceImpl implements EleveService {
 	private final EleveMapper eleveMapper;
 	private final PasswordGeneratorService passwordGeneratorService;
 
-	public EleveServiceImpl(EleveRepo eleveRepo, EleveMapper eleveMapper, PasswordGeneratorService passwordGeneratorService) {
+	public EleveServiceImpl(
+		EleveRepo eleveRepo,
+		EleveMapper eleveMapper,
+		PasswordGeneratorService passwordGeneratorService
+	) {
 		this.eleveRepo = eleveRepo;
 		this.eleveMapper = eleveMapper;
-        this.passwordGeneratorService = passwordGeneratorService;
-    }
+		this.passwordGeneratorService = passwordGeneratorService;
+	}
 
+	@CacheEvict(value = "eleves", allEntries = true )
 	@Override
 	public EleveResponseDTO ajouterEleve(EleveRequestDTO dto) {
 		Eleve eleve = eleveMapper.toEntity(dto);
@@ -40,9 +46,10 @@ public class EleveServiceImpl implements EleveService {
 		return eleveResponseDTO;
 	}
 
+	@CacheEvict(value = "eleves", allEntries = true )
 	@Override
 	public Eleve editEleve(long id, EleveRequestDTO eleve) {
-		Eleve eleve1 = eleveRepo.findById(id).orElseThrow(()->new RuntimeException("eleve not found !!"));
+		Eleve eleve1 = eleveRepo.findById(id).orElseThrow(() -> new RuntimeException("eleve not found !!"));
 		eleve1.setUsername(eleve.getUsername());
 		eleve1.setTel(eleve.getTel());
 		eleve1.setDateNaissance(eleve.getDateNaissance());
@@ -53,29 +60,31 @@ public class EleveServiceImpl implements EleveService {
 		return eleveRepo.save(eleve1);
 	}
 
+	@CacheEvict(value = "eleves", key = "#id")
 	@Override
 	public void supprimerEleve(long id) {
-		Eleve eleve = eleveRepo.findById(id).orElseThrow(()->new RuntimeException("eleve not found !!"));;
-		if(eleve != null){
+		Eleve eleve = eleveRepo.findById(id).orElseThrow(() -> new RuntimeException("eleve not found !!"));
+		if (eleve != null) {
 			eleveRepo.delete(eleve);
-		}else {
+		} else {
 			System.out.println("Eleve Not Found !!");
 		}
 	}
 
+	@Cacheable(value = "eleves", key = "#id")
 	@Override
 	public EleveResponseDTO consulterEleveById(long id) {
-		Eleve eleve = eleveRepo.findById(id).orElseThrow(()->new RuntimeException("eleve not found !!"));;
-
+		Eleve eleve = eleveRepo.findById(id).orElseThrow(() -> new RuntimeException("eleve not found !!"));
 		EleveResponseDTO eleveResponseDTO = eleveMapper.toDTO(eleve);
 
 		return eleveResponseDTO;
 	}
 
+	@Cacheable(value = "eleves", key = "#pageNumber + '-' + #pageSize")
 	@Override
 	public Page<EleveResponseDTO> consulterEleves(int size, int page) {
-		Pageable pageable = PageRequest.of(size,page);
-		Page<Eleve> eleves =  eleveRepo.findAll(pageable);
+		Pageable pageable = PageRequest.of(size, page);
+		Page<Eleve> eleves = eleveRepo.findAll(pageable);
 		return eleves.map(eleve -> eleveMapper.toDTO(eleve));
 	}
 }

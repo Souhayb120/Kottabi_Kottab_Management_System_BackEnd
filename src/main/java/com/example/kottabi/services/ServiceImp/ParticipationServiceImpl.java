@@ -13,6 +13,8 @@ import com.example.kottabi.repositories.EleveRepo;
 import com.example.kottabi.repositories.EnseignantRepo;
 import com.example.kottabi.repositories.ParticipationRepo;
 import com.example.kottabi.services.ParticipationService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,12 +31,12 @@ public class ParticipationServiceImpl implements ParticipationService {
 	private final ConcourRepo concourRepo;
 
 	public ParticipationServiceImpl(
-		ParticipationRepo participationRepo,
-		ParticipationMapper participationMapper,
-		PresenceMapper presenceMapper,
-		EleveRepo eleveRepo,
-		EnseignantRepo enseignantRepo,
-		ConcourRepo concourRepo
+			ParticipationRepo participationRepo,
+			ParticipationMapper participationMapper,
+			PresenceMapper presenceMapper,
+			EleveRepo eleveRepo,
+			EnseignantRepo enseignantRepo,
+			ConcourRepo concourRepo
 	) {
 		this.participationRepo = participationRepo;
 		this.participationMapper = participationMapper;
@@ -44,20 +46,21 @@ public class ParticipationServiceImpl implements ParticipationService {
 		this.concourRepo = concourRepo;
 	}
 
+	@CacheEvict(value = "participations", allEntries = true)
 	@Override
 	public ParticipationResponseDTO registerParticipation(ParticipationRequestDTO participationRequestDTO) {
 		Participation participation = participationMapper.toEntity(participationRequestDTO);
 		Eleve eleve = eleveRepo
-			.findById(participationRequestDTO.getEleveId())
-			.orElseThrow(() -> new RuntimeException("eleve not found !! "));
+				.findById(participationRequestDTO.getEleveId())
+				.orElseThrow(() -> new RuntimeException("eleve not found !! "));
 
 		Enseignant enseignant = enseignantRepo
-			.findById(participationRequestDTO.getEnseignantId())
-			.orElseThrow(() -> new RuntimeException("enseignant not found !! "));
+				.findById(participationRequestDTO.getEnseignantId())
+				.orElseThrow(() -> new RuntimeException("enseignant not found !! "));
 
 		Concour concour = concourRepo
-			.findById(participationRequestDTO.getConcourId())
-			.orElseThrow(() -> new RuntimeException("concour not found !! "));
+				.findById(participationRequestDTO.getConcourId())
+				.orElseThrow(() -> new RuntimeException("concour not found !! "));
 		participation.setEleve(eleve);
 		participation.setEnseignant(enseignant);
 		participation.setConcour(concour);
@@ -67,6 +70,7 @@ public class ParticipationServiceImpl implements ParticipationService {
 		return participationResponseDTO;
 	}
 
+	@Cacheable(value = "participations", key = "#page + '-' + #size")
 	@Override
 	public Page<ParticipationResponseDTO> findAll(int page, int size) {
 		Pageable pageableParticipations = PageRequest.of(page, size);
@@ -74,11 +78,12 @@ public class ParticipationServiceImpl implements ParticipationService {
 		return participations.map(participation -> participationMapper.toDTO(participation));
 	}
 
+	@CacheEvict(value = "participations", allEntries = true)
 	@Override
 	public void supprimerParticipation(long id) {
 		Participation participation = participationRepo
-			.findById(id)
-			.orElseThrow(() -> new RuntimeException("participation not found !! "));
+				.findById(id)
+				.orElseThrow(() -> new RuntimeException("participation not found !! "));
 		participationRepo.delete(participation);
 	}
 }

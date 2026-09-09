@@ -1,6 +1,8 @@
 package com.example.kottabi.DTO;
 
 import com.example.kottabi.enums.Role;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EleveResponseDTO {
+public class EleveResponseDTO implements Serializable {
 	private String username;
 	private String nom;
 	private String prenom;

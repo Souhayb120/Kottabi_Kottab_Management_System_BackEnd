@@ -7,11 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProgressionResponseDTO {
+public class ProgressionResponseDTO implements Serializable {
 
 	private String sourat;
 	private int versetDebut;
