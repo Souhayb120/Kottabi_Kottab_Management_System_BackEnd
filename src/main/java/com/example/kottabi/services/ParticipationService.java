@@ -1,10 +1,8 @@
 package com.example.kottabi.services;
 
-import com.example.kottabi.DTO.ParticipationRequestDTO;
-import com.example.kottabi.DTO.ParticipationResponseDTO;
-import com.example.kottabi.models.Participation;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationRequestDTO;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service

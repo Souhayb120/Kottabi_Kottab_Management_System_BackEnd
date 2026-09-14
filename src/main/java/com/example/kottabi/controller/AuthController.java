@@ -1,9 +1,9 @@
 package com.example.kottabi.controller;
 
-import com.example.kottabi.DTO.AuthResponse;
-import com.example.kottabi.DTO.ChangePasswordRequest;
-import com.example.kottabi.DTO.UserAuthRequest;
-import com.example.kottabi.DTO.UserLoginDTO;
+import com.example.kottabi.DTO.UserDTO.AuthResponse;
+import com.example.kottabi.DTO.UserDTO.ChangePasswordRequest;
+import com.example.kottabi.DTO.UserDTO.UserAuthRequest;
+import com.example.kottabi.DTO.UserDTO.UserLoginDTO;
 import com.example.kottabi.config.AuthService;
 import com.example.kottabi.services.UserPasswordService;
 import jakarta.validation.Valid;

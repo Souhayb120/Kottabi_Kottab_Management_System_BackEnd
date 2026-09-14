@@ -1,11 +1,9 @@
 package com.example.kottabi.controller;
 
-import com.example.kottabi.DTO.ParticipationRequestDTO;
-import com.example.kottabi.DTO.ParticipationResponseDTO;
-import com.example.kottabi.models.Participation;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationRequestDTO;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
 import com.example.kottabi.services.ParticipationService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 

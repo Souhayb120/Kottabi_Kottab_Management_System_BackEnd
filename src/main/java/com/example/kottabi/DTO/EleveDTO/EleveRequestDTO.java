@@ -1,6 +1,5 @@
-package com.example.kottabi.DTO;
+package com.example.kottabi.DTO.EleveDTO;
 
-import com.example.kottabi.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

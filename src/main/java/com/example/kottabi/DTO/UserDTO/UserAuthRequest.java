@@ -1,9 +1,8 @@
-package com.example.kottabi.DTO;
+package com.example.kottabi.DTO.UserDTO;
 
 import com.example.kottabi.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;

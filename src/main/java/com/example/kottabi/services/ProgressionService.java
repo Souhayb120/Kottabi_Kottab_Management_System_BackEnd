@@ -1,8 +1,8 @@
 package com.example.kottabi.services;
 
 
-import com.example.kottabi.DTO.ProgressionRequestDTO;
-import com.example.kottabi.DTO.ProgressionResponseDTO;
+import com.example.kottabi.DTO.ProgressionDTO.ProgressionRequestDTO;
+import com.example.kottabi.DTO.ProgressionDTO.ProgressionResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.example.kottabi.services.ServiceImp;
 
-import com.example.kottabi.DTO.ProgressionRequestDTO;
-import com.example.kottabi.DTO.ProgressionResponseDTO;
+import com.example.kottabi.DTO.ProgressionDTO.ProgressionRequestDTO;
+import com.example.kottabi.DTO.ProgressionDTO.ProgressionResponseDTO;
 import com.example.kottabi.mapper.ProgressionMapper;
 import com.example.kottabi.models.Eleve;
 import com.example.kottabi.models.Enseignant;

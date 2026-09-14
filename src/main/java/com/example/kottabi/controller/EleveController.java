@@ -1,7 +1,7 @@
 package com.example.kottabi.controller;
 
-import com.example.kottabi.DTO.EleveRequestDTO;
-import com.example.kottabi.DTO.EleveResponseDTO;
+import com.example.kottabi.DTO.EleveDTO.EleveRequestDTO;
+import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
 import com.example.kottabi.models.Eleve;
 import com.example.kottabi.services.EleveService;
 import jakarta.validation.Valid;

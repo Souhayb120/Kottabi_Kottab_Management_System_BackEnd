@@ -1,4 +1,4 @@
-package com.example.kottabi.DTO;
+package com.example.kottabi.DTO.ProgressionDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

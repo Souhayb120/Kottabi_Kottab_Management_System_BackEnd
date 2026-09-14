@@ -1,14 +1,13 @@
 package com.example.kottabi.config;
 
-import com.example.kottabi.DTO.AuthResponse;
-import com.example.kottabi.DTO.UserAuthRequest;
-import com.example.kottabi.DTO.UserLoginDTO;
+import com.example.kottabi.DTO.UserDTO.AuthResponse;
+import com.example.kottabi.DTO.UserDTO.UserAuthRequest;
+import com.example.kottabi.DTO.UserDTO.UserLoginDTO;
 import com.example.kottabi.enums.Role;
 import com.example.kottabi.models.Admin;
 import com.example.kottabi.models.Eleve;
 import com.example.kottabi.models.Enseignant;
 import com.example.kottabi.repositories.UserRepository;
-import jakarta.persistence.RollbackException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

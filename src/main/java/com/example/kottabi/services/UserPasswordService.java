@@ -1,7 +1,7 @@
 package com.example.kottabi.services;
 
 
-import com.example.kottabi.DTO.ChangePasswordRequest;
+import com.example.kottabi.DTO.UserDTO.ChangePasswordRequest;
 import org.springframework.stereotype.Service;
 
 @Service

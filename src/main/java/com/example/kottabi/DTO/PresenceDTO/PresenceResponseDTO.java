@@ -1,7 +1,7 @@
-package com.example.kottabi.DTO;
+package com.example.kottabi.DTO.PresenceDTO;
 
+import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
 import com.example.kottabi.enums.Statut;
-import com.example.kottabi.models.Eleve;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

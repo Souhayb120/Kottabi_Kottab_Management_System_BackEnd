@@ -1,11 +1,9 @@
 package com.example.kottabi.controller;
 
-import com.example.kottabi.DTO.PresenceRequestDTO;
-import com.example.kottabi.DTO.PresenceResponseDTO;
-import com.example.kottabi.models.Presence;
+import com.example.kottabi.DTO.PresenceDTO.PresenceRequestDTO;
+import com.example.kottabi.DTO.PresenceDTO.PresenceResponseDTO;
 import com.example.kottabi.services.PresenceService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 

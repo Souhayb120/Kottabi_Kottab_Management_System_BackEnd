@@ -3,8 +3,8 @@ package com.example.kottabi.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-import com.example.kottabi.DTO.EleveRequestDTO;
-import com.example.kottabi.DTO.EleveResponseDTO;
+import com.example.kottabi.DTO.EleveDTO.EleveRequestDTO;
+import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
 import com.example.kottabi.config.PasswordGeneratorService;
 import com.example.kottabi.mapper.EleveMapper;
 import com.example.kottabi.models.Eleve;
@@ -16,8 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.passay.PasswordGenerator;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
 class EleveServiceTest {

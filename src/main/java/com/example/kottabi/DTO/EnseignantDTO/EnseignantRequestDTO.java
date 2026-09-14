@@ -1,4 +1,4 @@
-package com.example.kottabi.DTO;
+package com.example.kottabi.DTO.EnseignantDTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

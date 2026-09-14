@@ -1,12 +1,15 @@
 package com.example.kottabi.mapper;
 
-import com.example.kottabi.DTO.ParticipationRequestDTO;
-import com.example.kottabi.DTO.ParticipationResponseDTO;
+import com.example.kottabi.DTO.AI_DTO.ParticipationAI;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationRequestDTO;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
 import com.example.kottabi.models.Participation;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ParticipationMapper {
-    Participation toEntity(ParticipationRequestDTO participationRequestDTO);
-    ParticipationResponseDTO toDTO(Participation participation);
+	Participation toEntity(ParticipationRequestDTO participationRequestDTO);
+	ParticipationResponseDTO toDTO(Participation participation);
+
+	ParticipationAI toParticipationAi(Participation participation);
 }

@@ -1,10 +1,9 @@
 package com.example.kottabi.controller;
 
-import com.example.kottabi.DTO.ProgressionRequestDTO;
-import com.example.kottabi.DTO.ProgressionResponseDTO;
+import com.example.kottabi.DTO.ProgressionDTO.ProgressionRequestDTO;
+import com.example.kottabi.DTO.ProgressionDTO.ProgressionResponseDTO;
 import com.example.kottabi.services.ProgressionService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 

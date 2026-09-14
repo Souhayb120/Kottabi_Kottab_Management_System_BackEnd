@@ -1,23 +1,18 @@
 package com.example.kottabi.services.ServiceImp;
 
-import com.example.kottabi.DTO.EleveRequestDTO;
-import com.example.kottabi.DTO.EleveResponseDTO;
-import com.example.kottabi.Exceptions.ResourceNotFoundException;
+import com.example.kottabi.DTO.EleveDTO.EleveRequestDTO;
+import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
 import com.example.kottabi.config.PasswordGeneratorService;
-import com.example.kottabi.enums.Role;
 import com.example.kottabi.mapper.EleveMapper;
 import com.example.kottabi.models.Eleve;
 import com.example.kottabi.repositories.EleveRepo;
 import com.example.kottabi.services.EleveService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.cfg.MapperBuilder;
 
 @Service
 public class EleveServiceImpl implements EleveService {

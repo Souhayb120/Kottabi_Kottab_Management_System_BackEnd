@@ -1,10 +1,9 @@
 package com.example.kottabi.controller;
 
-import com.example.kottabi.DTO.ConcourRequestDTO;
-import com.example.kottabi.DTO.ConcourResponseDTO;
+import com.example.kottabi.DTO.ConcourDTO.ConcourRequestDTO;
+import com.example.kottabi.DTO.ConcourDTO.ConcourResponseDTO;
 import com.example.kottabi.services.ConcourService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

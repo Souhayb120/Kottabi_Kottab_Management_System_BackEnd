@@ -1,7 +1,7 @@
 package com.example.kottabi.services.ServiceImp;
 
-import com.example.kottabi.DTO.EnseignantRequestDTO;
-import com.example.kottabi.DTO.EnseignantResponseDTO;
+import com.example.kottabi.DTO.EnseignantDTO.EnseignantRequestDTO;
+import com.example.kottabi.DTO.EnseignantDTO.EnseignantResponseDTO;
 import com.example.kottabi.Exceptions.ResourceNotFoundException;
 import com.example.kottabi.config.PasswordGeneratorService;
 import com.example.kottabi.mapper.EnseignantMapper;

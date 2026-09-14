@@ -1,10 +1,7 @@
 package com.example.kottabi.services;
 
-import com.example.kottabi.DTO.EleveRequestDTO;
-import com.example.kottabi.DTO.EleveResponseDTO;
-import com.example.kottabi.DTO.EnseignantRequestDTO;
-import com.example.kottabi.DTO.EnseignantResponseDTO;
-import com.example.kottabi.models.Eleve;
+import com.example.kottabi.DTO.EnseignantDTO.EnseignantRequestDTO;
+import com.example.kottabi.DTO.EnseignantDTO.EnseignantResponseDTO;
 import com.example.kottabi.models.Enseignant;
 import org.springframework.data.domain.Page;
 

@@ -1,7 +1,7 @@
-package com.example.kottabi.DTO;
+package com.example.kottabi.DTO.ProgressionDTO;
 
-import com.example.kottabi.models.Eleve;
-import com.example.kottabi.models.Enseignant;
+import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
+import com.example.kottabi.DTO.EnseignantDTO.EnseignantResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

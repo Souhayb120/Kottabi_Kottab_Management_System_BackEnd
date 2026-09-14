@@ -1,6 +1,4 @@
-package com.example.kottabi.DTO;
-
-import com.example.kottabi.enums.Role;
+package com.example.kottabi.DTO.EleveDTO;
 
 import java.io.Serializable;
 import java.time.LocalDate;

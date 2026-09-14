@@ -1,4 +1,4 @@
-package com.example.kottabi.DTO;
+package com.example.kottabi.DTO.UserDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

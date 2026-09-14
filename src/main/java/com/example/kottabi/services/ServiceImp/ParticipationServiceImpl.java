@@ -1,7 +1,7 @@
 package com.example.kottabi.services.ServiceImp;
 
-import com.example.kottabi.DTO.ParticipationRequestDTO;
-import com.example.kottabi.DTO.ParticipationResponseDTO;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationRequestDTO;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
 import com.example.kottabi.mapper.ParticipationMapper;
 import com.example.kottabi.mapper.PresenceMapper;
 import com.example.kottabi.models.Concour;

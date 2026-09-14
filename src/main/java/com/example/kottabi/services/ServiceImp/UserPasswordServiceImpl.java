@@ -1,11 +1,9 @@
 package com.example.kottabi.services.ServiceImp;
 
-import com.example.kottabi.DTO.ChangePasswordRequest;
+import com.example.kottabi.DTO.UserDTO.ChangePasswordRequest;
 import com.example.kottabi.models.UserEntity;
 import com.example.kottabi.repositories.UserRepository;
 import com.example.kottabi.services.UserPasswordService;
-import java.util.Optional;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

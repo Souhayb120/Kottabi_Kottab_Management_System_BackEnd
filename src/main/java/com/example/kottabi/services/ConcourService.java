@@ -1,8 +1,8 @@
 package com.example.kottabi.services;
 
 
-import com.example.kottabi.DTO.ConcourRequestDTO;
-import com.example.kottabi.DTO.ConcourResponseDTO;
+import com.example.kottabi.DTO.ConcourDTO.ConcourRequestDTO;
+import com.example.kottabi.DTO.ConcourDTO.ConcourResponseDTO;
 import org.springframework.stereotype.Service;
 
 @Service

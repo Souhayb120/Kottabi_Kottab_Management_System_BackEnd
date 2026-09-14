@@ -1,7 +1,7 @@
 package com.example.kottabi.services.ServiceImp;
 
-import com.example.kottabi.DTO.ConcourRequestDTO;
-import com.example.kottabi.DTO.ConcourResponseDTO;
+import com.example.kottabi.DTO.ConcourDTO.ConcourRequestDTO;
+import com.example.kottabi.DTO.ConcourDTO.ConcourResponseDTO;
 import com.example.kottabi.mapper.ConcourMapper;
 import com.example.kottabi.models.Concour;
 import com.example.kottabi.repositories.ConcourRepo;

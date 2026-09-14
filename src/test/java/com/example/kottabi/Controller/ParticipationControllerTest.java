@@ -3,8 +3,8 @@ package com.example.kottabi.Controller;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-import com.example.kottabi.DTO.ParticipationRequestDTO;
-import com.example.kottabi.DTO.ParticipationResponseDTO;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationRequestDTO;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
 import com.example.kottabi.controller.ParticipationController;
 import com.example.kottabi.services.ParticipationService;
 import org.junit.jupiter.api.Test;

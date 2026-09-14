@@ -1,7 +1,7 @@
 package com.example.kottabi.services.ServiceImp;
 
-import com.example.kottabi.DTO.PresenceRequestDTO;
-import com.example.kottabi.DTO.PresenceResponseDTO;
+import com.example.kottabi.DTO.PresenceDTO.PresenceRequestDTO;
+import com.example.kottabi.DTO.PresenceDTO.PresenceResponseDTO;
 import com.example.kottabi.enums.Statut;
 import com.example.kottabi.mapper.PresenceMapper;
 import com.example.kottabi.models.Eleve;
