@@ -12,5 +12,5 @@ public interface ProgressionService {
     Page<ProgressionResponseDTO> consulterProgressions(int page , int size);
     void supprimerProgression(long id);
     ProgressionResponseDTO modifierProgressionById(long id, ProgressionRequestDTO progressionRequestDTO);
-    Page<ProgressionResponseDTO> consulterProgressionByEleveUserName(String username , int page , int size);
+    ProgressionResponseDTO consulterProgressionByEleveUserName(String username);
 }

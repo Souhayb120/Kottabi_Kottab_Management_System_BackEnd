@@ -5,6 +5,7 @@ import com.example.kottabi.DTO.PresenceDTO.PresenceResponseDTO;
 import com.example.kottabi.services.PresenceService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +20,7 @@ public class PresenceController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
     public PresenceResponseDTO enregistrerAbsenceEleve(
             @Valid @RequestBody PresenceRequestDTO presenceRequestDTO) {
 
@@ -26,6 +28,7 @@ public class PresenceController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
     public void modifierAbsenceStatut(
             @PathVariable long id,
             @RequestParam String statut) {
@@ -34,12 +37,14 @@ public class PresenceController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
     public void supprimerAbsence(@PathVariable long id) {
 
         presenceService.supprimerAbsence(id);
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
     public Page<PresenceResponseDTO> consulterLesAbsences(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {

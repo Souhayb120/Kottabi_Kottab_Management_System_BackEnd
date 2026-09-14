@@ -1,5 +1,4 @@
 package com.example.kottabi.services.ServiceImp;
-
 import com.example.kottabi.DTO.AI_DTO.*;
 import com.example.kottabi.Exceptions.ResourceNotFoundException;
 import com.example.kottabi.mapper.ParticipationMapper;
@@ -12,7 +11,6 @@ import com.example.kottabi.models.Progression;
 import com.example.kottabi.repositories.EleveRepo;
 import com.example.kottabi.services.AIRapportGenerator;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 @Service
 public class AiRapportGeneratorImpl implements AIRapportGenerator {

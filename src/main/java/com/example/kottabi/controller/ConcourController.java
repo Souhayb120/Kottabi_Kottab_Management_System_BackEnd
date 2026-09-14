@@ -4,6 +4,7 @@ import com.example.kottabi.DTO.ConcourDTO.ConcourRequestDTO;
 import com.example.kottabi.DTO.ConcourDTO.ConcourResponseDTO;
 import com.example.kottabi.services.ConcourService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,21 +18,26 @@ public class ConcourController {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ConcourResponseDTO ajouterConcour(@Valid @RequestBody ConcourRequestDTO concour) {
 		return concourService.ajouterConcour(concour);
 	}
 
+
 	@GetMapping("{id}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ConcourResponseDTO findConcourById(@PathVariable long id) {
 		return concourService.consulterConcourById(id);
 	}
 
 	@DeleteMapping("{id}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public void supprimerConcour(@PathVariable long id) {
 		concourService.supprimerConcour(id);
 	}
 
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ConcourResponseDTO modifierConcour(@PathVariable long id, @RequestBody ConcourRequestDTO concourRequestDTO) {
 		return concourService.editConcour(id, concourRequestDTO);
 	}

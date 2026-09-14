@@ -6,6 +6,7 @@ import com.example.kottabi.models.Enseignant;
 import com.example.kottabi.services.EnseignantService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +20,7 @@ public class EnseignantController {
 	}
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public Page<EnseignantResponseDTO> consulterEnseignants(
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "10") int size
@@ -27,16 +29,19 @@ public class EnseignantController {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public EnseignantResponseDTO ajouterEnseignant(@Valid @RequestBody EnseignantRequestDTO enseignantRequestDTO) {
 		return enseignantService.ajouterEnseignant(enseignantRequestDTO);
 	}
 
 	@GetMapping("{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public EnseignantResponseDTO findEnseignantById(@PathVariable long id) {
 		return enseignantService.consulterEnseignantById(id);
 	}
 
 	@GetMapping("/specialite/{specialite}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Page<EnseignantResponseDTO> findEnseignantsBySpecialite(
 		@PathVariable String specialite,
 		@RequestParam(defaultValue = "0") int page,
@@ -46,11 +51,13 @@ public class EnseignantController {
 	}
 
 	@DeleteMapping("{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void SupprimerEnseignant(@PathVariable long id) {
 		enseignantService.supprimerEnseignant(id);
 	}
 
 	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Enseignant modifierEnseignant(
 		@PathVariable long id,
 		@RequestBody EnseignantRequestDTO enseignantRequestDTO
