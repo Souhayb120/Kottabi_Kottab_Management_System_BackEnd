@@ -1,86 +1,121 @@
-
-		package com.example.kottabi.controller;
+package com.example.kottabi.controller;
 
 import com.example.kottabi.DTO.AI_DTO.AiRapportRequestDTO;
-import com.example.kottabi.DTO.AI_DTO.AiRapportResponceDTO;
 import com.example.kottabi.services.AIRapportGenerator;
+import com.example.kottabi.services.ServiceImp.PdfRapportService;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/ai/rapport")
 public class AiController {
 
+	private final PdfRapportService pdfRapportService;
 	private final AIRapportGenerator aiRapportGenerator;
 	private final ChatClient chatClient;
 
 	public AiController(
-			AIRapportGenerator aiRapportGenerator,
-			ChatClient.Builder chatClientBuilder
+		PdfRapportService pdfRapportService,
+		AIRapportGenerator aiRapportGenerator,
+		ChatClient.Builder chatClientBuilder
 	) {
+		this.pdfRapportService = pdfRapportService;
 		this.aiRapportGenerator = aiRapportGenerator;
 		this.chatClient = chatClientBuilder.build();
 	}
 
-	@GetMapping("/ask")
-	public String ask(@RequestParam String ask) {
-		return chatClient
-				.prompt()
-				.user(ask)
-				.call()
-				.content();
-	}
-
 	@PostMapping("/{id}")
-	public AiRapportResponceDTO sendRapport(@PathVariable long id) {
+	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
+	public String sendRapport(@PathVariable long id) {
+		AiRapportRequestDTO student = aiRapportGenerator.createEleveRapportAi(id);
 
-		AiRapportRequestDTO student =
-				aiRapportGenerator.createEleveRapportAi(id);
+		String rapport = chatClient
+			.prompt()
+			.system(
+				"""
+                        أنت مساعد تربوي في تطبيق "كتّابي".
 
-		return chatClient
-				.prompt()
-				.system(
-						"أنت مساعد تعليمي في تطبيق كتّابي. " +
-								"مهمتك إعداد تقرير مختصر وواضح عن طالب في حفظ القرآن الكريم. " +
-								"حلّل البيانات المقدمة فقط، ولا تخترع أي معلومات. " +
-								"اكتب باللغة العربية الفصحى فقط، بأسلوب تربوي واضح ومحترم."
-				)
-				.user(
-						"بيانات الطالب:\n\n" +
+                        مهمتك إعداد تقرير تربوي مختصر واحترافي عن طالب في حفظ القرآن الكريم.
 
-								"الاسم: " +
-								student.getPrenom() + " " +
-								student.getNom() + "\n" +
+                        اعتمد حصراً على البيانات المقدمة.
+                        لا تخترع أي معلومة ولا تستنتج معلومات غير موجودة في البيانات.
+                        إذا كانت بعض البيانات غير متوفرة، لا تذكرها.
 
-								"تاريخ الميلاد: " +
-								student.getDateNaissance() + "\n\n" +
+                        اكتب باللغة العربية الفصحى فقط.
+                        استخدم أسلوباً تربوياً محترماً وواضحاً ومناسباً لتقرير مدرسي.
+                        لا تستخدم عبارات مبالغ فيها.
+                        لا تضع نسباً أو أرقاماً إلا إذا كانت محسوبة فعلياً من البيانات.
+                        """
+			)
+			.user(
+				"""
+                        بيانات الطالب:
 
-								"الحضور:\n" +
-								student.getPresences() + "\n\n" +
+                        الاسم:
+                        %s %s
 
-								"تقدم حفظ القرآن الكريم:\n" +
-								student.getProgressions() + "\n\n" +
+                        تاريخ الميلاد:
+                        %s
 
-								"المشاركة في المسابقات القرآنية:\n" +
-								student.getParticipations() + "\n\n" +
+                        سجل الحضور:
+                        %s
 
-								"المطلوب:\n" +
-								"أنشئ تقريراً مختصراً ومنظماً باللغة العربية الفصحى فقط.\n\n" +
+                        تقدم حفظ القرآن الكريم:
+                        %s
 
-								"يجب أن يتضمن:\n" +
-								"1. معلومات الطالب.\n" +
-								"2. نسبة الحضور والغياب بناءً على سجل الحضور.\n" +
-								"3. نسبة التقدم في حفظ القرآن الكريم بناءً على بيانات التقدم.\n" +
-								"4. ملخصاً قصيراً عن المشاركة في المسابقات القرآنية.\n" +
-								"5. تقييماً عاماً مختصراً لمستوى الطالب.\n" +
-								"6. توصية تربوية قصيرة للمعلم.\n\n" +
+                        المشاركة في المسابقات القرآنية:
+                        %s
 
-								"لا تطل في الشرح. " +
-								"استخدم عناوين واضحة ونقاطاً مختصرة. " +
-								"لا تضف أي معلومة غير موجودة في البيانات."
-				)
-				.call()
-				.entity(AiRapportResponceDTO.class);
+
+                        المطلوب:
+
+                        أنشئ تقريراً تربوياً مختصراً ومنظماً.
+
+                        يجب أن يحتوي التقرير على الأقسام التالية:
+
+                        1. معلومات الطالب
+                        اذكر اسم الطالب وتاريخ الميلاد فقط.
+
+                        2. الحضور والمواظبة
+                        لخّص وضع الحضور والغياب اعتماداً على سجل الحضور لآخر شهر.
+                        إذا كانت البيانات تسمح بحساب النسبة، اذكرها.
+                        ثم قدم جملة قصيرة عن مستوى المواظبة.
+
+                        3. مستوى حفظ القرآن الكريم
+                        لخّص ما تم حفظه اعتماداً على بيانات التقدم فقط.
+                        اذكر السور والآيات أو الأجزاء الموجودة في البيانات.
+                        صف مستوى التقدم بشكل مختصر دون اختراع تقييم رقمي.
+
+                        4. المشاركة في المسابقات
+                        لخّص مشاركات الطالب في المسابقات القرآنية، مع ذكر النتائج
+                        أو الترتيب أو الملاحظات إذا كانت موجودة.
+
+                        5. التقييم العام
+                        قدم تقييماً تربوياً قصيراً مبنياً فقط على البيانات المتوفرة.
+
+                        قواعد مهمة:
+                        - التقرير مختصر ومهني.
+                        - لا تكرر نفس المعلومات.
+                        - لا تستخدم جداول.
+                        - لا تستخدم Markdown معقداً.
+                        - استخدم عناوين واضحة.
+                        - لا تضف مقدمة طويلة أو خاتمة عامة.
+                        - لا تخترع نسباً أو معلومات غير موجودة.
+                        """.formatted(
+						student.getPrenom(),
+						student.getNom(),
+						student.getDateNaissance(),
+						student.getPresences(),
+						student.getProgressions(),
+						student.getParticipations()
+					)
+			)
+			.call()
+			.content();
+
+		pdfRapportService.generatePdf(rapport, id);
+
+		return "PDF report generated successfully for student " + id;
 	}
 }
-

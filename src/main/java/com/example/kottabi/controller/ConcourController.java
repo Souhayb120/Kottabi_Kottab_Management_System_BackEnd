@@ -18,26 +18,26 @@ public class ConcourController {
 	}
 
 	@PostMapping
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ConcourResponseDTO ajouterConcour(@Valid @RequestBody ConcourRequestDTO concour) {
 		return concourService.ajouterConcour(concour);
 	}
 
 
 	@GetMapping("{id}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ConcourResponseDTO findConcourById(@PathVariable long id) {
 		return concourService.consulterConcourById(id);
 	}
 
 	@DeleteMapping("{id}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void supprimerConcour(@PathVariable long id) {
 		concourService.supprimerConcour(id);
 	}
 
 	@PutMapping("/{id}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ConcourResponseDTO modifierConcour(@PathVariable long id, @RequestBody ConcourRequestDTO concourRequestDTO) {
 		return concourService.editConcour(id, concourRequestDTO);
 	}
