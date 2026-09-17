@@ -30,6 +30,12 @@ public class EleveController {
 		return eleveService.ajouterEleve(eleve);
 	}
 
+	@GetMapping("username/{username}")
+	@PreAuthorize("hasAnyRole('ADMIN','ELEVE')")
+	public EleveResponseDTO findEleveByUsername(@PathVariable String username){
+		return eleveService.consulterEleveByUsername(username);
+	}
+
 	@GetMapping("{id}")
 	@PreAuthorize("hasAnyRole('ADMIN','ELEVE')")
 	public EleveResponseDTO findEleveById(@PathVariable long id){

@@ -32,7 +32,7 @@ public class EleveRequestDTO {
 	@NotBlank(message = "Tel is required")
 	private String tel;
 
-	@NotBlank(message = "Password is required")
+
 	@Size(min = 6, message = "Password must contain at least 6 characters")
 	private String password;
 

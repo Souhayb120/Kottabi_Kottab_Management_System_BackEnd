@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProgressionRepo extends JpaRepository<Progression , Long> {
 
 
-    Progression findByEleveUsername(String username);
+    Page<Progression> findByEleveUsername(String username,Pageable pageable);
 }

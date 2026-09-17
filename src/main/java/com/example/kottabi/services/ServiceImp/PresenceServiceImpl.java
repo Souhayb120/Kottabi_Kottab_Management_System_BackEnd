@@ -70,4 +70,12 @@ public class PresenceServiceImpl implements PresenceService {
 		Page<Presence> presences = presenceRepo.findAll(pageable);
 		return presences.map(presence -> presenceMapper.toDTO(presence));
 	}
+
+	@Cacheable(value = "presences", key = "#username + '-' + #page + '-' + #size")
+	@Override
+	public Page<PresenceResponseDTO> consulterPresencesByEleve(String username, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Presence> presences = presenceRepo.findByEleveUsername(username, pageable);
+		return presences.map(presence -> presenceMapper.toDTO(presence));
+	}
 }

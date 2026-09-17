@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EleveResponseDTO implements Serializable {
+	private long id;
 	private String username;
 	private String nom;
 	private String prenom;

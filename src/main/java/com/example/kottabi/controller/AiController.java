@@ -1,6 +1,7 @@
 package com.example.kottabi.controller;
 
 import com.example.kottabi.DTO.AI_DTO.AiRapportRequestDTO;
+import com.example.kottabi.models.Eleve;
 import com.example.kottabi.services.AIRapportGenerator;
 import com.example.kottabi.services.ServiceImp.PdfRapportService;
 import org.springframework.ai.chat.client.ChatClient;
@@ -118,4 +119,5 @@ public class AiController {
 
 		return "PDF report generated successfully for student " + id;
 	}
+
 }

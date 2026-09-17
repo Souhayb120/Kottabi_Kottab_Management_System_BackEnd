@@ -13,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnseignantResponseDTO implements Serializable {
+    private long id;
     private String username;
     private String prenom;
     private String nom;

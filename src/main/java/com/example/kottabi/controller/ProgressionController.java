@@ -14,11 +14,11 @@ public class ProgressionController {
 
 	private final ProgressionService progressionService;
 
-    public ProgressionController(ProgressionService progressionService) {
-        this.progressionService = progressionService;
-    }
+	public ProgressionController(ProgressionService progressionService) {
+		this.progressionService = progressionService;
+	}
 
-    @PostMapping
+	@PostMapping
 	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
 	public ProgressionResponseDTO ajouterProgression(@Valid @RequestBody ProgressionRequestDTO progressionRequestDTO) {
 		return progressionService.ajouterProgression(progressionRequestDTO);
@@ -35,10 +35,12 @@ public class ProgressionController {
 
 	@GetMapping("/eleve/{username}")
 	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
-	public ProgressionResponseDTO consulterProgressionsByEleve(
+	public Page<ProgressionResponseDTO> consulterProgressionsByEleve(
+		@RequestParam(defaultValue = "0") int page,
+		@RequestParam(defaultValue = "10") int size,
 		@PathVariable String username
 	) {
-		return progressionService.consulterProgressionByEleveUserName(username);
+		return progressionService.consulterProgressionByEleveUserName(username,page,size);
 	}
 
 	@PutMapping("/{id}")

@@ -36,6 +36,16 @@ public class ParticipationController {
 		return participationService.findAll(page, size);
 	}
 
+	@GetMapping("/eleve/{username}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public Page<ParticipationResponseDTO> findByEleveUsername(
+		@PathVariable String username,
+		@RequestParam(defaultValue = "0") int page,
+		@RequestParam(defaultValue = "10") int size
+	) {
+		return participationService.findByEleveUsername(username, page, size);
+	}
+
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public void supprimerParticipation(@PathVariable long id) {

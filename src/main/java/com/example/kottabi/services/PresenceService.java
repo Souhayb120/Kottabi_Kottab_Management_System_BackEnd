@@ -11,4 +11,5 @@ public interface PresenceService {
     void modifierAbsenceStatut(long id , String statut);
     void supprimerAbsence(long id);
     Page<PresenceResponseDTO> consulterLesAbsences(int page , int size);
+    Page<PresenceResponseDTO> consulterPresencesByEleve(String username , int page , int size);
 }

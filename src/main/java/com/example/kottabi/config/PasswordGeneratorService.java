@@ -9,12 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PasswordGeneratorService {
 
-	private final PasswordEncoder passwordEncoder;
-
-	public PasswordGeneratorService(PasswordEncoder passwordEncoder) {
-		this.passwordEncoder = passwordEncoder;
-	}
-
 	public String generatePassword() {
 		PasswordGenerator passwordGenerator = new PasswordGenerator();
 
@@ -24,7 +18,6 @@ public class PasswordGeneratorService {
 			new CharacterRule(EnglishCharacterData.UpperCase, 2),
 			new CharacterRule(EnglishCharacterData.Digit, 2)
 		);
-		System.out.println(code);
-		return passwordEncoder.encode(code);
+		return code;
 	}
 }

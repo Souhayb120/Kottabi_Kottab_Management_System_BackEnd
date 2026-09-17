@@ -9,5 +9,6 @@ import org.springframework.stereotype.Service;
 public interface ParticipationService {
     ParticipationResponseDTO registerParticipation(ParticipationRequestDTO participationRequestDTO);
     Page<ParticipationResponseDTO> findAll(int page , int size);
+    Page<ParticipationResponseDTO> findByEleveUsername(String username , int page , int size);
     void supprimerParticipation(long id);
 }

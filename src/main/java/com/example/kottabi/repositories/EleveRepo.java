@@ -11,4 +11,6 @@ public interface EleveRepo extends JpaRepository<Eleve, Long> {
     Page<Eleve> findAll(Pageable pageable);
 
     Optional<Eleve> findById(long id);
+
+    Optional<Eleve> findByUsername(String username);
 }

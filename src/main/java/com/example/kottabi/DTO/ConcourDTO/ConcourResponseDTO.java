@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConcourResponseDTO implements Serializable {
+    private long id;
     private String nom;
     private String description;
     private LocalDate dateCreation;

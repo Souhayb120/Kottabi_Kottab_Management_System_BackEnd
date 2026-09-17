@@ -106,8 +106,9 @@ public class ProgressionServiceImpl implements ProgressionService {
 	}
 
 	@Override
-	public ProgressionResponseDTO consulterProgressionByEleveUserName(String username) {
-		Progression progression = progressionRepo.findByEleveUsername(username);
-		return progressionMapper.toDTO(progression);
+	public Page<ProgressionResponseDTO> consulterProgressionByEleveUserName(String username, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Progression> progressions = progressionRepo.findByEleveUsername(username, pageable);
+		return progressions.map(progression -> progressionMapper.toDTO(progression));
 	}
 }

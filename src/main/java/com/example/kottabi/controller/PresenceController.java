@@ -51,4 +51,14 @@ public class PresenceController {
 
         return presenceService.consulterLesAbsences(page, size);
     }
+
+    @GetMapping("/eleve/{username}")
+    @PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
+    public Page<PresenceResponseDTO> consulterPresencesByEleve(
+            @PathVariable String username,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        return presenceService.consulterPresencesByEleve(username, page, size);
+    }
 }

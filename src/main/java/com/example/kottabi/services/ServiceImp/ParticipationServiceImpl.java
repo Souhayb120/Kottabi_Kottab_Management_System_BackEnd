@@ -78,6 +78,14 @@ public class ParticipationServiceImpl implements ParticipationService {
 		return participations.map(participation -> participationMapper.toDTO(participation));
 	}
 
+	@Cacheable(value = "participations", key = "#username + '-' + #page + '-' + #size")
+	@Override
+	public Page<ParticipationResponseDTO> findByEleveUsername(String username, int page, int size) {
+		Pageable pageableParticipations = PageRequest.of(page, size);
+		Page<Participation> participations = participationRepo.findByEleveUsername(username, pageableParticipations);
+		return participations.map(participation -> participationMapper.toDTO(participation));
+	}
+
 	@CacheEvict(value = "participations", allEntries = true)
 	@Override
 	public void supprimerParticipation(long id) {
