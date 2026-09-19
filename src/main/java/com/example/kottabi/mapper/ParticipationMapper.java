@@ -1,6 +1,7 @@
 package com.example.kottabi.mapper;
 
 import com.example.kottabi.DTO.AI_DTO.ParticipationAI;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationBriefDTO;
 import com.example.kottabi.DTO.ParticipationDTO.ParticipationRequestDTO;
 import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
 import com.example.kottabi.models.Participation;
@@ -12,4 +13,5 @@ public interface ParticipationMapper {
 	ParticipationResponseDTO toDTO(Participation participation);
 
 	ParticipationAI toParticipationAi(Participation participation);
+	ParticipationBriefDTO toBrief(Participation participation);
 }

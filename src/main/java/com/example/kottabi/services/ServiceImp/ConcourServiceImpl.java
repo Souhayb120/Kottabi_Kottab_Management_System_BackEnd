@@ -66,7 +66,7 @@ public class ConcourServiceImpl implements ConcourService {
 		return concourResponseDTO;
 	}
 
-	@Cacheable(value = "concours", key = "#pageNumber + '-' + #pageSize")
+	@Cacheable(value = "concours", key = "#page + '-' + #size")
 	@Override
 	public Page<ConcourResponseDTO> consulterConcours(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);

@@ -1,7 +1,7 @@
 package com.example.kottabi.DTO.ConcourDTO;
 
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationBriefDTO;
 import com.example.kottabi.enums.NiveauHifz;
-import com.example.kottabi.models.Participation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +22,5 @@ public class ConcourResponseDTO implements Serializable {
     private String description;
     private LocalDate dateCreation;
     private NiveauHifz niveauHifz;
-    private List<Participation> participationList;
+    private List<ParticipationBriefDTO> participationList;
 }
