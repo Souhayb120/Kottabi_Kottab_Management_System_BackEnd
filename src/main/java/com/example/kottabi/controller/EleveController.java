@@ -36,6 +36,12 @@ public class EleveController {
 		return eleveService.consulterEleveByUsername(username);
 	}
 
+	@GetMapping("/countEleves")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public long findEleveByUsername(){
+		return eleveService.countEleve();
+	}
+
 	@GetMapping("{id}")
 	@PreAuthorize("hasAnyRole('ADMIN','ELEVE')")
 	public EleveResponseDTO findEleveById(@PathVariable long id){

@@ -2,8 +2,10 @@ package com.example.kottabi.controller;
 
 import com.example.kottabi.DTO.ConcourDTO.ConcourRequestDTO;
 import com.example.kottabi.DTO.ConcourDTO.ConcourResponseDTO;
+import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
 import com.example.kottabi.services.ConcourService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,21 @@ public class ConcourController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public ConcourResponseDTO ajouterConcour(@Valid @RequestBody ConcourRequestDTO concour) {
 		return concourService.ajouterConcour(concour);
+	}
+
+	@GetMapping("/countConcours")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public long countConcours(){
+		return concourService.countConcours();
+	}
+
+	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
+	public Page<ConcourResponseDTO> findAllConcours(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size
+	) {
+		return concourService.consulterConcours(page, size);
 	}
 
 

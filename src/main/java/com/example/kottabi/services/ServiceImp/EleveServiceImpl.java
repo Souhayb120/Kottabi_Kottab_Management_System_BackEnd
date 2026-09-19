@@ -90,11 +90,18 @@ public class EleveServiceImpl implements EleveService {
 		return eleveMapper.toDTO(eleve);
 	}
 
+
+
 	@Cacheable(value = "eleves", key = "#page + '-' + #size")
 	@Override
 	public Page<EleveResponseDTO> consulterEleves(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Eleve> eleves = eleveRepo.findAll(pageable);
 		return eleves.map(eleve -> eleveMapper.toDTO(eleve));
+	}
+
+	@Override
+	public long countEleve() {
+		return eleveRepo.count();
 	}
 }

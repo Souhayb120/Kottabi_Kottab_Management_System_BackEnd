@@ -4,10 +4,14 @@ import com.example.kottabi.DTO.ConcourDTO.ConcourRequestDTO;
 import com.example.kottabi.DTO.ConcourDTO.ConcourResponseDTO;
 import com.example.kottabi.mapper.ConcourMapper;
 import com.example.kottabi.models.Concour;
+import com.example.kottabi.models.Eleve;
 import com.example.kottabi.repositories.ConcourRepo;
 import com.example.kottabi.services.ConcourService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -61,4 +65,19 @@ public class ConcourServiceImpl implements ConcourService {
 		ConcourResponseDTO concourResponseDTO = concourMapper.toDTO(concour);
 		return concourResponseDTO;
 	}
+
+	@Cacheable(value = "concours", key = "#pageNumber + '-' + #pageSize")
+	@Override
+	public Page<ConcourResponseDTO> consulterConcours(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Concour> concours = concourRepo.findAll(pageable);
+		return  concours.map(concour -> concourMapper.toDTO(concour));
+	}
+
+	@Override
+	public long countConcours() {
+		return concourRepo.count();
+	}
+
+
 }

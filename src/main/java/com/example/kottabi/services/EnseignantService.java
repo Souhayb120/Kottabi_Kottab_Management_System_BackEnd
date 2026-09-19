@@ -9,6 +9,7 @@ public interface EnseignantService {
     EnseignantResponseDTO ajouterEnseignant(EnseignantRequestDTO enseignantRequestDTO);
     Enseignant editEnseignant(long id , EnseignantRequestDTO enseignantRequestDTO);
     void supprimerEnseignant(long id);
+    long countEnseignant();
     EnseignantResponseDTO consulterEnseignantById(long id);
     Page<EnseignantResponseDTO> consulterEnseignantBySpecialite(String specialite,int page , int size);
     Page<EnseignantResponseDTO> consulterEnseignants(int page , int size);

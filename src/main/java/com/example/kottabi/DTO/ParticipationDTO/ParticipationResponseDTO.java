@@ -16,6 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ParticipationResponseDTO implements Serializable {
 
+	private long id;
 	private Double note;
 	private String commentaire;
 	private int classement;

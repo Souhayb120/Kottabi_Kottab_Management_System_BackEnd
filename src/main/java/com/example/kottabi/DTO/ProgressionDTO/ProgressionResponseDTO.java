@@ -15,6 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ProgressionResponseDTO implements Serializable {
 
+	private long id;
 	private String sourat;
 	private int versetDebut;
 	private int versetFin;

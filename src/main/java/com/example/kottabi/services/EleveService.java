@@ -15,4 +15,5 @@ public interface EleveService {
     EleveResponseDTO consulterEleveById(long id);
     EleveResponseDTO consulterEleveByUsername(String username);
     Page<EleveResponseDTO> consulterEleves(int page , int size);
+    long countEleve();
 }

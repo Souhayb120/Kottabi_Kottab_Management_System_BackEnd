@@ -94,4 +94,33 @@ public class ParticipationServiceImpl implements ParticipationService {
 				.orElseThrow(() -> new RuntimeException("participation not found !! "));
 		participationRepo.delete(participation);
 	}
+
+	@CacheEvict(value = "participations", allEntries = true)
+	@Override
+	public ParticipationResponseDTO modifierParticipation(long id, ParticipationRequestDTO participationRequestDTO) {
+		Participation participation = participationRepo
+				.findById(id)
+				.orElseThrow(() -> new RuntimeException("participation not found !! "));
+
+		participation.setNote(participationRequestDTO.getNote());
+		participation.setCommentaire(participationRequestDTO.getCommentaire());
+		participation.setClassement(participationRequestDTO.getClassement());
+
+		Eleve eleve = eleveRepo
+				.findById(participationRequestDTO.getEleveId())
+				.orElseThrow(() -> new RuntimeException("eleve not found !! "));
+		Enseignant enseignant = enseignantRepo
+				.findById(participationRequestDTO.getEnseignantId())
+				.orElseThrow(() -> new RuntimeException("enseignant not found !! "));
+		Concour concour = concourRepo
+				.findById(participationRequestDTO.getConcourId())
+				.orElseThrow(() -> new RuntimeException("concour not found !! "));
+
+		participation.setEleve(eleve);
+		participation.setEnseignant(enseignant);
+		participation.setConcour(concour);
+
+		Participation participationSaved = participationRepo.save(participation);
+		return participationMapper.toDTO(participationSaved);
+	}
 }

@@ -74,6 +74,11 @@ public class EnseignantServiceImpl implements EnseignantService {
 		enseignantRepo.delete(enseignant);
 	}
 
+	@Override
+	public long countEnseignant() {
+		return enseignantRepo.count();
+	}
+
 	@Cacheable(value = "enseignant", key = "#id")
 	@Override
 	public EnseignantResponseDTO consulterEnseignantById(long id) {

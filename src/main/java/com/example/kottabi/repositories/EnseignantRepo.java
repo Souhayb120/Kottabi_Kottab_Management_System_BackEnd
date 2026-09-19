@@ -11,4 +11,6 @@ public interface EnseignantRepo extends JpaRepository<Enseignant, Long> {
             String specialite,
             Pageable pageable
     );
+    long count();
+
 }

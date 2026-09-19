@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PresenceResponseDTO implements Serializable {
+    private long id;
     private LocalDate date;
     private Statut statut;
     private EleveResponseDTO eleve;

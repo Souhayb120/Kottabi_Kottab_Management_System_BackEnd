@@ -5,6 +5,11 @@ import com.example.kottabi.models.Eleve;
 import com.example.kottabi.services.AIRapportGenerator;
 import com.example.kottabi.services.ServiceImp.PdfRapportService;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -118,6 +123,16 @@ public class AiController {
 		pdfRapportService.generatePdf(rapport, id);
 
 		return "PDF report generated successfully for student " + id;
+	}
+
+	@GetMapping("/{id}/file")
+	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
+	public ResponseEntity<Resource> telechargerRapport(@PathVariable long id) {
+		Resource resource = new FileSystemResource(pdfRapportService.getRapportFile(id));
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=rapport-" + id + ".pdf")
+				.contentType(MediaType.APPLICATION_PDF)
+				.body(resource);
 	}
 
 }

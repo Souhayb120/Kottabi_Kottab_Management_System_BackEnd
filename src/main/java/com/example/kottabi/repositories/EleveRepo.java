@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface EleveRepo extends JpaRepository<Eleve, Long> {
     Page<Eleve> findAll(Pageable pageable);
-
+    long count();
     Optional<Eleve> findById(long id);
 
     Optional<Eleve> findByUsername(String username);

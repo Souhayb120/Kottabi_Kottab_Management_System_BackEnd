@@ -51,4 +51,13 @@ public class ParticipationController {
 	public void supprimerParticipation(@PathVariable long id) {
 		participationService.supprimerParticipation(id);
 	}
+
+	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ParticipationResponseDTO modifierParticipation(
+		@PathVariable long id,
+		@Valid @RequestBody ParticipationRequestDTO participationRequestDTO
+	) {
+		return participationService.modifierParticipation(id, participationRequestDTO);
+	}
 }

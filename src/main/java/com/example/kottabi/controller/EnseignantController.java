@@ -34,6 +34,12 @@ public class EnseignantController {
 		return enseignantService.ajouterEnseignant(enseignantRequestDTO);
 	}
 
+	@GetMapping("/countEnseignants")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public long countEnseignants(){
+		return enseignantService.countEnseignant();
+	}
+
 	@GetMapping("{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public EnseignantResponseDTO findEnseignantById(@PathVariable long id) {
