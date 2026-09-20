@@ -1,7 +1,7 @@
 package com.example.kottabi.Controller;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import com.example.kottabi.DTO.ParticipationDTO.ParticipationRequestDTO;
 import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
 
 @ExtendWith(MockitoExtension.class)
 class ParticipationControllerTest {
@@ -31,4 +32,13 @@ class ParticipationControllerTest {
 		assertNotNull(result);
 		assertEquals(participationResponseDTO, result);
 	}
+
+	@Test
+	void findAll() {
+		Page<ParticipationResponseDTO> page = Page.empty();
+		when(participationService.findAll(0, 10)).thenReturn(page);
+		Page<ParticipationResponseDTO> result = participationController.findAll(0, 10);
+		assertEquals(page, result);
+	}
+
 }

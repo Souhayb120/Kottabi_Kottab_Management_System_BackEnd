@@ -11,7 +11,6 @@ import org.mapstruct.Mapper;
 public interface ParticipationMapper {
 	Participation toEntity(ParticipationRequestDTO participationRequestDTO);
 	ParticipationResponseDTO toDTO(Participation participation);
-
 	ParticipationAI toParticipationAi(Participation participation);
 	ParticipationBriefDTO toBrief(Participation participation);
 }

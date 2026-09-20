@@ -3,6 +3,7 @@ package com.example.kottabi.services.ServiceImp;
 import com.example.kottabi.DTO.EnseignantDTO.EnseignantRequestDTO;
 import com.example.kottabi.DTO.EnseignantDTO.EnseignantResponseDTO;
 import com.example.kottabi.Exceptions.ResourceNotFoundException;
+import com.example.kottabi.config.EmailService;
 import com.example.kottabi.config.PasswordGeneratorService;
 import com.example.kottabi.mapper.EnseignantMapper;
 import com.example.kottabi.models.Enseignant;
@@ -13,21 +14,26 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EnseignantServiceImpl implements EnseignantService {
 
+	private final PasswordEncoder passwordEncoder;
+	private final EmailService emailService;
 	private final EnseignantRepo enseignantRepo;
 	private final EnseignantMapper enseignantMapper;
 	private final PasswordGeneratorService passwordGeneratorService;
 
 	public EnseignantServiceImpl(
-		EnseignantRepo enseignantRepo,
-		EnseignantMapper enseignantMapper,
-		PasswordGeneratorService passwordGeneratorService
+            PasswordEncoder passwordEncoder, EmailService emailService, EnseignantRepo enseignantRepo,
+            EnseignantMapper enseignantMapper,
+            PasswordGeneratorService passwordGeneratorService
 	) {
-		this.enseignantRepo = enseignantRepo;
+        this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
+        this.enseignantRepo = enseignantRepo;
 		this.enseignantMapper = enseignantMapper;
 		this.passwordGeneratorService = passwordGeneratorService;
 	}
@@ -37,6 +43,8 @@ public class EnseignantServiceImpl implements EnseignantService {
 	public EnseignantResponseDTO ajouterEnseignant(EnseignantRequestDTO dto) {
 		Enseignant enseignant = enseignantMapper.toEntity(dto);
 		enseignant.setPassword(passwordGeneratorService.generatePassword());
+		emailService.sendPassword(enseignant.getEmail(),enseignant.getPassword());
+		enseignant.setPassword(passwordEncoder.encode(enseignant.getPassword()));
 		Enseignant saved = enseignantRepo.save(enseignant);
 		EnseignantResponseDTO enseignantResponseDTO = enseignantMapper.toDTO(saved);
 		return enseignantResponseDTO;

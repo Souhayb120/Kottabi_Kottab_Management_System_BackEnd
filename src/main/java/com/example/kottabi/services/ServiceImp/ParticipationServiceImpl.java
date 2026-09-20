@@ -25,22 +25,20 @@ public class ParticipationServiceImpl implements ParticipationService {
 
 	private final ParticipationRepo participationRepo;
 	private final ParticipationMapper participationMapper;
-	private final PresenceMapper presenceMapper;
 	private final EleveRepo eleveRepo;
 	private final EnseignantRepo enseignantRepo;
 	private final ConcourRepo concourRepo;
 
 	public ParticipationServiceImpl(
-			ParticipationRepo participationRepo,
-			ParticipationMapper participationMapper,
-			PresenceMapper presenceMapper,
-			EleveRepo eleveRepo,
-			EnseignantRepo enseignantRepo,
-			ConcourRepo concourRepo
+		ParticipationRepo participationRepo,
+		ParticipationMapper participationMapper,
+		PresenceMapper presenceMapper,
+		EleveRepo eleveRepo,
+		EnseignantRepo enseignantRepo,
+		ConcourRepo concourRepo
 	) {
 		this.participationRepo = participationRepo;
 		this.participationMapper = participationMapper;
-		this.presenceMapper = presenceMapper;
 		this.eleveRepo = eleveRepo;
 		this.enseignantRepo = enseignantRepo;
 		this.concourRepo = concourRepo;
@@ -51,16 +49,16 @@ public class ParticipationServiceImpl implements ParticipationService {
 	public ParticipationResponseDTO registerParticipation(ParticipationRequestDTO participationRequestDTO) {
 		Participation participation = participationMapper.toEntity(participationRequestDTO);
 		Eleve eleve = eleveRepo
-				.findById(participationRequestDTO.getEleveId())
-				.orElseThrow(() -> new RuntimeException("eleve not found !! "));
+			.findById(participationRequestDTO.getEleveId())
+			.orElseThrow(() -> new RuntimeException("eleve not found !! "));
 
 		Enseignant enseignant = enseignantRepo
-				.findById(participationRequestDTO.getEnseignantId())
-				.orElseThrow(() -> new RuntimeException("enseignant not found !! "));
+			.findById(participationRequestDTO.getEnseignantId())
+			.orElseThrow(() -> new RuntimeException("enseignant not found !! "));
 
 		Concour concour = concourRepo
-				.findById(participationRequestDTO.getConcourId())
-				.orElseThrow(() -> new RuntimeException("concour not found !! "));
+			.findById(participationRequestDTO.getConcourId())
+			.orElseThrow(() -> new RuntimeException("concour not found !! "));
 		participation.setEleve(eleve);
 		participation.setEnseignant(enseignant);
 		participation.setConcour(concour);
@@ -90,8 +88,8 @@ public class ParticipationServiceImpl implements ParticipationService {
 	@Override
 	public void supprimerParticipation(long id) {
 		Participation participation = participationRepo
-				.findById(id)
-				.orElseThrow(() -> new RuntimeException("participation not found !! "));
+			.findById(id)
+			.orElseThrow(() -> new RuntimeException("participation not found !! "));
 		participationRepo.delete(participation);
 	}
 
@@ -99,22 +97,22 @@ public class ParticipationServiceImpl implements ParticipationService {
 	@Override
 	public ParticipationResponseDTO modifierParticipation(long id, ParticipationRequestDTO participationRequestDTO) {
 		Participation participation = participationRepo
-				.findById(id)
-				.orElseThrow(() -> new RuntimeException("participation not found !! "));
+			.findById(id)
+			.orElseThrow(() -> new RuntimeException("participation not found !! "));
 
 		participation.setNote(participationRequestDTO.getNote());
 		participation.setCommentaire(participationRequestDTO.getCommentaire());
 		participation.setClassement(participationRequestDTO.getClassement());
 
 		Eleve eleve = eleveRepo
-				.findById(participationRequestDTO.getEleveId())
-				.orElseThrow(() -> new RuntimeException("eleve not found !! "));
+			.findById(participationRequestDTO.getEleveId())
+			.orElseThrow(() -> new RuntimeException("eleve not found !! "));
 		Enseignant enseignant = enseignantRepo
-				.findById(participationRequestDTO.getEnseignantId())
-				.orElseThrow(() -> new RuntimeException("enseignant not found !! "));
+			.findById(participationRequestDTO.getEnseignantId())
+			.orElseThrow(() -> new RuntimeException("enseignant not found !! "));
 		Concour concour = concourRepo
-				.findById(participationRequestDTO.getConcourId())
-				.orElseThrow(() -> new RuntimeException("concour not found !! "));
+			.findById(participationRequestDTO.getConcourId())
+			.orElseThrow(() -> new RuntimeException("concour not found !! "));
 
 		participation.setEleve(eleve);
 		participation.setEnseignant(enseignant);
