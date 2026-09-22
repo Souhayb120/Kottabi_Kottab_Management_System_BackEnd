@@ -1,5 +1,6 @@
 package com.example.kottabi.controller;
 
+import com.example.kottabi.DTO.AI_DTO.AiRapportRequestDTO;
 import com.example.kottabi.DTO.EleveDTO.EleveRequestDTO;
 import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
 import com.example.kottabi.models.Eleve;
@@ -7,7 +8,11 @@ import com.example.kottabi.services.EleveService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +22,14 @@ public class EleveController {
 	@Autowired
 	private EleveService eleveService;
 
+	@GetMapping("/me")
+	public AiRapportRequestDTO getMyProfile(Authentication authentication) {
+		String username = authentication.getName();
+		return eleveService.me(username);
+	}
 
 	@GetMapping()
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
 	public Page<EleveResponseDTO> consulterEleves(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
 		return eleveService.consulterEleves(page, size);
 	}
@@ -30,12 +40,7 @@ public class EleveController {
 		return eleveService.ajouterEleve(eleve);
 	}
 
-	@GetMapping("username/{username}")
-	@PreAuthorize("hasAnyRole('ADMIN','ELEVE')")
-	public EleveResponseDTO findEleveByUsername(@PathVariable String username){
-		return eleveService.consulterEleveByUsername(username);
-	}
-
+	
 	@GetMapping("/countEleves")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public long findEleveByUsername(){
@@ -43,7 +48,7 @@ public class EleveController {
 	}
 
 	@GetMapping("{id}")
-	@PreAuthorize("hasAnyRole('ADMIN','ELEVE')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public EleveResponseDTO findEleveById(@PathVariable long id){
 		return eleveService.consulterEleveById(id);
 	}

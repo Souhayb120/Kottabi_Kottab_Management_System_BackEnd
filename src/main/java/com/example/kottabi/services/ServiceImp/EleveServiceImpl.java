@@ -1,11 +1,22 @@
 package com.example.kottabi.services.ServiceImp;
 
+import com.example.kottabi.DTO.AI_DTO.AiRapportRequestDTO;
+import com.example.kottabi.DTO.AI_DTO.ParticipationAI;
+import com.example.kottabi.DTO.AI_DTO.PresenceAI;
+import com.example.kottabi.DTO.AI_DTO.ProgressionAI;
 import com.example.kottabi.DTO.EleveDTO.EleveRequestDTO;
 import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
+import com.example.kottabi.Exceptions.ResourceNotFoundException;
 import com.example.kottabi.config.EmailService;
 import com.example.kottabi.config.PasswordGeneratorService;
 import com.example.kottabi.mapper.EleveMapper;
+import com.example.kottabi.mapper.ParticipationMapper;
+import com.example.kottabi.mapper.PresenceMapper;
+import com.example.kottabi.mapper.ProgressionMapper;
 import com.example.kottabi.models.Eleve;
+import com.example.kottabi.models.Participation;
+import com.example.kottabi.models.Presence;
+import com.example.kottabi.models.Progression;
 import com.example.kottabi.repositories.EleveRepo;
 import com.example.kottabi.services.EleveService;
 import org.springframework.cache.annotation.CacheEvict;
@@ -16,9 +27,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EleveServiceImpl implements EleveService {
 
+	private final ProgressionMapper progressionMapper;
+	private final ParticipationMapper participationMapper;
+	private final PresenceMapper presenceMapper;
 	private final EleveRepo eleveRepo;
 	private final EleveMapper eleveMapper;
 	private final PasswordGeneratorService passwordGeneratorService;
@@ -26,11 +42,14 @@ public class EleveServiceImpl implements EleveService {
 	private final PasswordEncoder passwordEncoder;
 
 	public EleveServiceImpl(
-            EleveRepo eleveRepo,
+            ProgressionMapper progressionMapper, ParticipationMapper participationMapper, PresenceMapper presenceMapper, EleveRepo eleveRepo,
             EleveMapper eleveMapper,
             PasswordGeneratorService passwordGeneratorService, EmailService emailService, PasswordEncoder passwordEncoder
     ) {
-		this.eleveRepo = eleveRepo;
+        this.progressionMapper = progressionMapper;
+        this.participationMapper = participationMapper;
+        this.presenceMapper = presenceMapper;
+        this.eleveRepo = eleveRepo;
 		this.eleveMapper = eleveMapper;
 		this.passwordGeneratorService = passwordGeneratorService;
         this.emailService = emailService;
@@ -103,5 +122,35 @@ public class EleveServiceImpl implements EleveService {
 	@Override
 	public long countEleve() {
 		return eleveRepo.count();
+	}
+
+	@Override
+	public AiRapportRequestDTO me(String username) {
+		Eleve eleve = eleveRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException(" user not found"));
+		AiRapportRequestDTO eleveProfile = new AiRapportRequestDTO();
+		eleveProfile.setNom(eleve.getNom());
+		eleveProfile.setPrenom(eleve.getPrenom());
+		eleveProfile.setDateNaissance(eleve.getDateNaissance());
+		List<Presence> presences = eleve.getPresenceList();
+		List<PresenceAI> presenceAIS = presences
+				.stream()
+				.map(presence -> presenceMapper.toPresenceAi(presence))
+				.toList();
+		eleveProfile.setPresences(presenceAIS);
+		List<Participation> participations = eleve.getParticipationList();
+		List<ParticipationAI> participationAIS = participations
+				.stream()
+				.map(participation -> participationMapper.toParticipationAi(participation))
+				.toList();
+		eleveProfile.setParticipations(participationAIS);
+
+		List<Progression> progressions = eleve.getProgressionList();
+		List<ProgressionAI> progressionAIS = progressions
+				.stream()
+				.map(progression -> progressionMapper.toProgressAi(progression))
+				.toList();
+		eleveProfile.setProgressions(progressionAIS);
+
+		return eleveProfile;
 	}
 }

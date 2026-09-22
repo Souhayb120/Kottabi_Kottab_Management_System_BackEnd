@@ -97,6 +97,16 @@ public class EnseignantServiceImpl implements EnseignantService {
 		return enseignantMapper.toDTO(enseignant);
 	}
 
+	@Cacheable(value = "enseignant", key = "#username")
+	@Override
+	public EnseignantResponseDTO consulterEnseignantByUsername(String username) {
+		Enseignant enseignant = enseignantRepo
+			.findByUsername(username)
+			.orElseThrow(() -> new ResourceNotFoundException("Enseignant not found !!"));
+
+		return enseignantMapper.toDTO(enseignant);
+	}
+
 	@Cacheable(value = "enseignant", key = "#specialite + '-' + #page + '-' + #size")
 	@Override
 	public Page<EnseignantResponseDTO> consulterEnseignantBySpecialite(String specialite, int page, int size) {

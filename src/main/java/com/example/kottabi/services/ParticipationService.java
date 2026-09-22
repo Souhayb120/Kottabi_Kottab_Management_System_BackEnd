@@ -12,4 +12,5 @@ public interface ParticipationService {
     Page<ParticipationResponseDTO> findByEleveUsername(String username , int page , int size);
     void supprimerParticipation(long id);
     ParticipationResponseDTO modifierParticipation(long id, ParticipationRequestDTO participationRequestDTO);
+    Page<ParticipationResponseDTO> findParticipationByEnseignantUserName(String userName, int page ,int size);
 }

@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class PresenceServiceImpl implements PresenceService {
 
@@ -77,5 +79,29 @@ public class PresenceServiceImpl implements PresenceService {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Presence> presences = presenceRepo.findByEleveUsername(username, pageable);
 		return presences.map(presence -> presenceMapper.toDTO(presence));
+	}
+
+	@Override
+	public Page<PresenceResponseDTO> getCurrentDayPresence(int page , int size) {
+		LocalDate dateNow = LocalDate.now();
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Presence> presences = presenceRepo.findByDate(dateNow ,pageable);
+		Page<PresenceResponseDTO> presenceResponseDTOS = presences.map(presence -> presenceMapper.toDTO(presence));
+		return presenceResponseDTOS;
+	}
+
+	@Override
+	public long countByStatut(String statut) {
+		return presenceRepo.countByStatut(Statut.valueOf(statut));
+	}
+
+
+
+	@Override
+	public Page<PresenceResponseDTO> getPresenceByStatut(String statut , int page , int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Presence> presences = presenceRepo.findByStatut(Statut.valueOf(statut) ,pageable);
+		Page<PresenceResponseDTO> presenceResponseDTOS = presences.map(presence -> presenceMapper.toDTO(presence));
+		return presenceResponseDTOS;
 	}
 }

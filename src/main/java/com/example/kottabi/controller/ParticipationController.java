@@ -5,7 +5,10 @@ import com.example.kottabi.DTO.ParticipationDTO.ParticipationResponseDTO;
 import com.example.kottabi.services.ParticipationService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +22,15 @@ public class ParticipationController {
         this.participationService = participationService;
     }
 
+    private void verifierAccesEleve(UserDetails currentUser, String username) {
+		boolean isEleve = currentUser.getAuthorities()
+			.stream()
+			.anyMatch(a -> a.getAuthority().equals("ROLE_ELEVE"));
+		if (isEleve && !currentUser.getUsername().equals(username)) {
+			throw new AccessDeniedException("Vous ne pouvez consulter que vos propres données.");
+		}
+	}
+
     @PostMapping
 	@PreAuthorize("hasRole('ADMIN')")
 	public ParticipationResponseDTO registerParticipation(
@@ -28,7 +40,7 @@ public class ParticipationController {
 	}
 
 	@GetMapping
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
 	public Page<ParticipationResponseDTO> findAll(
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "10") int size
@@ -36,13 +48,25 @@ public class ParticipationController {
 		return participationService.findAll(page, size);
 	}
 
-	@GetMapping("/eleve/{username}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public Page<ParticipationResponseDTO> findByEleveUsername(
+	@GetMapping("/enseignant/{username}")
+	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
+	public Page<ParticipationResponseDTO> findByEnseignantUsername(
 		@PathVariable String username,
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "10") int size
 	) {
+		return participationService.findParticipationByEnseignantUserName(username,page,size);
+	}
+
+	@GetMapping("/eneignant/{username}")
+	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT','ELEVE')")
+	public Page<ParticipationResponseDTO> findByEnseignantUsername(
+			@PathVariable String username,
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
+			@AuthenticationPrincipal UserDetails currentUser
+	) {
+		verifierAccesEleve(currentUser, username);
 		return participationService.findByEleveUsername(username, page, size);
 	}
 
@@ -53,7 +77,7 @@ public class ParticipationController {
 	}
 
 	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
 	public ParticipationResponseDTO modifierParticipation(
 		@PathVariable long id,
 		@Valid @RequestBody ParticipationRequestDTO participationRequestDTO

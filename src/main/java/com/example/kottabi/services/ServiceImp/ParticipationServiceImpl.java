@@ -121,4 +121,11 @@ public class ParticipationServiceImpl implements ParticipationService {
 		Participation participationSaved = participationRepo.save(participation);
 		return participationMapper.toDTO(participationSaved);
 	}
+
+	@Override
+	public Page<ParticipationResponseDTO> findParticipationByEnseignantUserName(String userName , int page , int size) {
+		Pageable pageableParticipations = PageRequest.of(page, size);
+		Page<Participation> participations = participationRepo.findParticipationByEnseignant_Username(userName, pageableParticipations);
+		return participations.map(participation -> participationMapper.toDTO(participation));
+	}
 }

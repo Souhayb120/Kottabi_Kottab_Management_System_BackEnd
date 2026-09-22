@@ -1,6 +1,7 @@
 package com.example.kottabi.services;
 
 
+import com.example.kottabi.DTO.AI_DTO.AiRapportRequestDTO;
 import com.example.kottabi.DTO.EleveDTO.EleveRequestDTO;
 import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
 import com.example.kottabi.models.Eleve;
@@ -16,4 +17,7 @@ public interface EleveService {
     EleveResponseDTO consulterEleveByUsername(String username);
     Page<EleveResponseDTO> consulterEleves(int page , int size);
     long countEleve();
+    AiRapportRequestDTO me(String username);
+
+
 }

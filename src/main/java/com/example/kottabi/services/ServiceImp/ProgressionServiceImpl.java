@@ -37,6 +37,19 @@ public class ProgressionServiceImpl implements ProgressionService {
 		this.enseignantRepo = enseignantRepo;
 	}
 
+	@Override
+	public Page<ProgressionResponseDTO> getRecentProgressions(int page, int size) {
+		Pageable pageable = PageRequest.of(page,size);
+		Page<Progression> progressions = progressionRepo.findTop6ByOrderByIdDesc(pageable);
+		Page<ProgressionResponseDTO> progressionResponseDTOS = progressions.map(progression -> progressionMapper.toDTO(progression));
+		return progressionResponseDTOS;
+	}
+
+	@Override
+	public long countPrograssion() {
+		return progressionRepo.count();
+	}
+
 	@CacheEvict(value = "progressions", allEntries = true)
 	@Override
 	public ProgressionResponseDTO ajouterProgression(ProgressionRequestDTO progressionRequestDTO) {
@@ -105,10 +118,18 @@ public class ProgressionServiceImpl implements ProgressionService {
 		return progressionMapper.toDTO(progressionUpdated);
 	}
 
+
 	@Override
 	public Page<ProgressionResponseDTO> consulterProgressionByEleveUserName(String username, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Progression> progressions = progressionRepo.findByEleveUsername(username, pageable);
+		return progressions.map(progression -> progressionMapper.toDTO(progression));
+	}
+
+	@Override
+	public Page<ProgressionResponseDTO> consulterProgressionByEnseaignantUserName(String username, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Progression> progressions = progressionRepo.findProgressionsByEnseignant_Username(username, pageable);
 		return progressions.map(progression -> progressionMapper.toDTO(progression));
 	}
 }
