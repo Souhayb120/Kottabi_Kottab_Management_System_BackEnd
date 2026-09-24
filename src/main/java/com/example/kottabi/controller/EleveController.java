@@ -22,15 +22,19 @@ public class EleveController {
 	@Autowired
 	private EleveService eleveService;
 
+
 	@GetMapping("/me")
+	@PreAuthorize("hasRole('ELEVE')")
 	public AiRapportRequestDTO getMyProfile(Authentication authentication) {
-		String username = authentication.getName();
-		return eleveService.me(username);
+		return eleveService.me(authentication.getName());
 	}
 
-	@GetMapping()
+	@GetMapping("/consulterEleves")
 	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
-	public Page<EleveResponseDTO> consulterEleves(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+	public Page<EleveResponseDTO> consulterEleves(
+		@RequestParam(defaultValue = "0") int page,
+		@RequestParam(defaultValue = "10") int size
+	) {
 		return eleveService.consulterEleves(page, size);
 	}
 
@@ -40,28 +44,27 @@ public class EleveController {
 		return eleveService.ajouterEleve(eleve);
 	}
 
-	
 	@GetMapping("/countEleves")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public long findEleveByUsername(){
+	public long findEleveByUsername() {
 		return eleveService.countEleve();
 	}
 
 	@GetMapping("{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public EleveResponseDTO findEleveById(@PathVariable long id){
+	public EleveResponseDTO findEleveById(@PathVariable long id) {
 		return eleveService.consulterEleveById(id);
 	}
 
 	@DeleteMapping("{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public void SupprimerEleve(@PathVariable long id){
+	public void SupprimerEleve(@PathVariable long id) {
 		eleveService.supprimerEleve(id);
 	}
 
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public Eleve modifierEleve(@PathVariable long id , @RequestBody EleveRequestDTO eleveRequestDTO){
-	return	eleveService.editEleve(id,eleveRequestDTO);
+	public Eleve modifierEleve(@PathVariable long id, @RequestBody EleveRequestDTO eleveRequestDTO) {
+		return eleveService.editEleve(id, eleveRequestDTO);
 	}
 }

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+
 import java.util.Optional;
 
 public interface EleveRepo extends JpaRepository<Eleve, Long> {
@@ -12,4 +13,5 @@ public interface EleveRepo extends JpaRepository<Eleve, Long> {
     long count();
     Optional<Eleve> findById(long id);
     Optional<Eleve> findByUsername(String username);
+
 }
