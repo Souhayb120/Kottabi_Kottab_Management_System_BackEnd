@@ -33,41 +33,41 @@ public class AuthService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public void register(UserAuthRequest request) {
-		Eleve eleve = new Eleve();
-		Enseignant enseignant = new Enseignant();
-		Admin admin = new Admin();
-		switch (request.getRole().name()) {
-			case "ELEVE" -> {
-				eleve.setUsername(request.getUsername());
-				eleve.setRole(Role.ELEVE);
-				eleve.setPassword(passwordEncoder.encode(request.getPassword()));
-				eleve.setPrenom(request.getPrenom());
-				eleve.setNom(request.getNom());
-				eleve.setDateNaissance(request.getDateNaissance());
-				eleve.setTel(request.getTel());
-				userRepository.save(eleve);
-			}
-			case "ADMIN" -> {
-				admin.setUsername(request.getUsername());
-				admin.setTel(request.getTel());
-				admin.setPassword(passwordEncoder.encode(request.getPassword()));
-				admin.setRole(Role.ADMIN);
-				userRepository.save(admin);
-			}
-			case "ENSEIGNANT" -> {
-				enseignant.setUsername(request.getUsername());
-				enseignant.setNom(request.getNom());
-				eleve.setPrenom(request.getPrenom());
-				enseignant.setTel(request.getTel());
-				enseignant.setPassword(passwordEncoder.encode(request.getPassword()));
-				enseignant.setRole(Role.ENSEIGNANT);
-				enseignant.setSpecialite(request.getSpecialite());
-				enseignant.setDescription(request.getDescription());
-				userRepository.save(enseignant);
-			}
-		}
-	}
+//	public void register(UserAuthRequest request) {
+//		Eleve eleve = new Eleve();
+//		Enseignant enseignant = new Enseignant();
+//		Admin admin = new Admin();
+//		switch (request.getRole().name()) {
+//			case "ELEVE" -> {
+//				eleve.setUsername(request.getUsername());
+//				eleve.setRole(Role.ELEVE);
+//				eleve.setPassword(passwordEncoder.encode(request.getPassword()));
+//				eleve.setPrenom(request.getPrenom());
+//				eleve.setNom(request.getNom());
+//				eleve.setDateNaissance(request.getDateNaissance());
+//				eleve.setTel(request.getTel());
+//				userRepository.save(eleve);
+//			}
+//			case "ADMIN" -> {
+//				admin.setUsername(request.getUsername());
+//				admin.setTel(request.getTel());
+//				admin.setPassword(passwordEncoder.encode(request.getPassword()));
+//				admin.setRole(Role.ADMIN);
+//				userRepository.save(admin);
+//			}
+//			case "ENSEIGNANT" -> {
+//				enseignant.setUsername(request.getUsername());
+//				enseignant.setNom(request.getNom());
+//				eleve.setPrenom(request.getPrenom());
+//				enseignant.setTel(request.getTel());
+//				enseignant.setPassword(passwordEncoder.encode(request.getPassword()));
+//				enseignant.setRole(Role.ENSEIGNANT);
+//				enseignant.setSpecialite(request.getSpecialite());
+//				enseignant.setDescription(request.getDescription());
+//				userRepository.save(enseignant);
+//			}
+//		}
+//	}
 
 	public AuthResponse login(UserLoginDTO request) {
 		authenticationManager.authenticate(
