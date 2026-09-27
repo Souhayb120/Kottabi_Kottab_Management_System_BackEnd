@@ -40,6 +40,17 @@ public class ConcourController {
 		return concourService.consulterConcours(page, size);
 	}
 
+	@GetMapping("/findConcourByType")
+	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
+	public Page<ConcourResponseDTO> findConcoursByType(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
+			@RequestParam(defaultValue = "") String type
+
+			) {
+		return concourService.getConcourByType(page, size,type);
+	}
+
 
 	@GetMapping("{id}")
 	@PreAuthorize("hasRole('ADMIN')")

@@ -15,7 +15,7 @@ public interface EleveService {
     void supprimerEleve(long id);
     EleveResponseDTO consulterEleveById(long id);
     EleveResponseDTO consulterEleveByUsername(String username);
-    Page<EleveResponseDTO> consulterEleves(int page , int size);
+    Page<EleveResponseDTO> consulterEleves(int page , int size , String asc);
     long countEleve();
     AiRapportRequestDTO me(String username);
 

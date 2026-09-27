@@ -33,9 +33,10 @@ public class EleveController {
 	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")
 	public Page<EleveResponseDTO> consulterEleves(
 		@RequestParam(defaultValue = "0") int page,
-		@RequestParam(defaultValue = "10") int size
+		@RequestParam(defaultValue = "10") int size,
+		@RequestParam(defaultValue = "asc") String direction
 	) {
-		return eleveService.consulterEleves(page, size);
+		return eleveService.consulterEleves(page, size,direction);
 	}
 
 	@PostMapping

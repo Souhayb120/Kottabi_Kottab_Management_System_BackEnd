@@ -26,6 +26,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,10 +116,10 @@ public class EleveServiceImpl implements EleveService {
 		return eleveMapper.toDTO(eleve);
 	}
 
-	@Cacheable(value = "eleves", key = "#page + '-' + #size")
+	@Cacheable(value = "eleves", key = "#page + '-' + #size + '-' + #direction")
 	@Override
-	public Page<EleveResponseDTO> consulterEleves(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
+	public Page<EleveResponseDTO> consulterEleves(int page, int size , String direction) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(direction.toUpperCase()), "id"));
 		Page<Eleve> eleves = eleveRepo.findAll(pageable);
 		return eleves.map(eleve -> eleveMapper.toDTO(eleve));
 	}

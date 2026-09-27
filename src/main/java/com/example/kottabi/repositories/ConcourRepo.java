@@ -1,5 +1,6 @@
 package com.example.kottabi.repositories;
 
+import com.example.kottabi.enums.NiveauHifz;
 import com.example.kottabi.models.Concour;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,5 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ConcourRepo extends JpaRepository<Concour, Long> {
 Page<Concour> findAll(Pageable pageable);
     long count();
+
+    Page<Concour> findByNiveauHifz(NiveauHifz niveauHifz , Pageable pageable);
 
 }

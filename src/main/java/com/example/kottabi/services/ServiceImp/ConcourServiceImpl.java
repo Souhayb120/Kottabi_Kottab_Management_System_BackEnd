@@ -2,6 +2,7 @@ package com.example.kottabi.services.ServiceImp;
 
 import com.example.kottabi.DTO.ConcourDTO.ConcourRequestDTO;
 import com.example.kottabi.DTO.ConcourDTO.ConcourResponseDTO;
+import com.example.kottabi.enums.NiveauHifz;
 import com.example.kottabi.mapper.ConcourMapper;
 import com.example.kottabi.models.Concour;
 import com.example.kottabi.models.Eleve;
@@ -77,6 +78,14 @@ public class ConcourServiceImpl implements ConcourService {
 	@Override
 	public long countConcours() {
 		return concourRepo.count();
+	}
+
+	@Override
+	public Page<ConcourResponseDTO> getConcourByType(int page ,int size , String concourType) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Concour> concours = concourRepo.findByNiveauHifz(NiveauHifz.valueOf(concourType),pageable);
+		return  concours.map(concour -> concourMapper.toDTO(concour));
+
 	}
 
 

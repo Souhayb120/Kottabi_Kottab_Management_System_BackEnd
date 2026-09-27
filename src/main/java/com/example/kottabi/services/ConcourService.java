@@ -15,5 +15,6 @@ public interface ConcourService {
     ConcourResponseDTO consulterConcourById(long id);
     Page<ConcourResponseDTO> consulterConcours(int page , int size);
     long countConcours();
+    Page<ConcourResponseDTO> getConcourByType(int page , int size , String concourType);
 
 }
