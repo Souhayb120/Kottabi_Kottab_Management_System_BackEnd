@@ -296,7 +296,7 @@ Full-Stack Developer — Java / Spring Boot / React
 
 GitHub: [Souhayb120](https://github.com/Souhayb120)
 ## Front End Repo
-FrontEnd [Front_End_Repository](https://github.com/Souhayb120/Kottabi_Kottab_Management_System_FrontEnd)
+KOTTABI FrontEnd [Front_End_Repository](https://github.com/Souhayb120/Kottabi_Kottab_Management_System_FrontEnd)
 
 ## License
 
