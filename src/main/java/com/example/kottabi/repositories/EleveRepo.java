@@ -13,5 +13,4 @@ public interface EleveRepo extends JpaRepository<Eleve, Long> {
     long count();
     Optional<Eleve> findById(long id);
     Optional<Eleve> findByUsername(String username);
-
 }

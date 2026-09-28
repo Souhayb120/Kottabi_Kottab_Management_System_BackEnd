@@ -19,15 +19,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/eleve")
 public class EleveController {
 
-	@Autowired
-	private EleveService eleveService;
+
+	private final EleveService eleveService;
+
+    public EleveController(EleveService eleveService) {
+        this.eleveService = eleveService;
+    }
 
 
-	@GetMapping("/me")
+    @GetMapping("/me")
 	@PreAuthorize("hasRole('ELEVE')")
 	public AiRapportRequestDTO getMyProfile(Authentication authentication) {
 		return eleveService.me(authentication.getName());
 	}
+
 
 	@GetMapping("/consulterEleves")
 	@PreAuthorize("hasAnyRole('ADMIN','ENSEIGNANT')")

@@ -6,6 +6,7 @@ import com.example.kottabi.models.Enseignant;
 import org.springframework.data.domain.Page;
 
 public interface EnseignantService {
+
     EnseignantResponseDTO ajouterEnseignant(EnseignantRequestDTO enseignantRequestDTO);
     Enseignant editEnseignant(long id , EnseignantRequestDTO enseignantRequestDTO);
     void supprimerEnseignant(long id);
