@@ -39,7 +39,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth ->
 						auth
 								.requestMatchers("/api/eleve/me").authenticated()
-								.requestMatchers("/api/auth/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "http://localhost:9000").permitAll()
+								.requestMatchers("/api/auth/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/localhost:9000").permitAll()
 								.anyRequest().authenticated()
 				)
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
