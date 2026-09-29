@@ -5,7 +5,6 @@ import com.example.kottabi.DTO.ConcourDTO.ConcourResponseDTO;
 import com.example.kottabi.enums.NiveauHifz;
 import com.example.kottabi.mapper.ConcourMapper;
 import com.example.kottabi.models.Concour;
-import com.example.kottabi.models.Eleve;
 import com.example.kottabi.repositories.ConcourRepo;
 import com.example.kottabi.services.ConcourService;
 import org.springframework.cache.annotation.CacheEvict;

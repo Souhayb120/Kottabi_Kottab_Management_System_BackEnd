@@ -1,4 +1,4 @@
-package com.example.kottabi.config;
+package com.example.kottabi.services.ServiceImp;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

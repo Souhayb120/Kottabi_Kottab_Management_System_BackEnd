@@ -18,22 +18,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private JwtUtil jwtUtil;
+	private final AuthenticationManager authenticationManager;
 
-	@Autowired
-	private UserService userDetailsService;
+	private final JwtUtil jwtUtil;
 
-	@Autowired
-	private UserRepository userRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final UserService userDetailsService;
 
-	public void register(UserAuthRequest request) {
+	private final UserRepository userRepository;
+
+	private final PasswordEncoder passwordEncoder;
+
+    public AuthService(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserService userDetailsService, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public void register(UserAuthRequest request) {
 		Eleve eleve = new Eleve();
 		Enseignant enseignant = new Enseignant();
 		Admin admin = new Admin();

@@ -1,25 +1,17 @@
 package com.example.kottabi.services.ServiceImp;
 
 import com.example.kottabi.DTO.AI_DTO.AiRapportRequestDTO;
-import com.example.kottabi.DTO.AI_DTO.ParticipationAI;
-import com.example.kottabi.DTO.AI_DTO.PresenceAI;
-import com.example.kottabi.DTO.AI_DTO.ProgressionAI;
 import com.example.kottabi.DTO.EleveDTO.EleveRequestDTO;
 import com.example.kottabi.DTO.EleveDTO.EleveResponseDTO;
 import com.example.kottabi.Exceptions.ResourceNotFoundException;
-import com.example.kottabi.config.EmailService;
 import com.example.kottabi.config.PasswordGeneratorService;
 import com.example.kottabi.mapper.EleveMapper;
 import com.example.kottabi.mapper.ParticipationMapper;
 import com.example.kottabi.mapper.PresenceMapper;
 import com.example.kottabi.mapper.ProgressionMapper;
 import com.example.kottabi.models.Eleve;
-import com.example.kottabi.models.Participation;
-import com.example.kottabi.models.Presence;
-import com.example.kottabi.models.Progression;
 import com.example.kottabi.repositories.EleveRepo;
 import com.example.kottabi.services.EleveService;
-import java.util.List;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
